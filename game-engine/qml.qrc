@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MovementAnimation.qml</file>
+        <file>Wall.qml</file>
+        <file>Face.qml</file>
+        <file>RectangleCollider.qml</file>
+        <file>CircleCollider.qml</file>
+        <file>CollisionManager.js</file>
+    </qresource>
+</RCC>
