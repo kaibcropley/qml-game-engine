@@ -1,11 +1,17 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>MovementAnimation.qml</file>
+        <file>animations/MovementAnimation.qml</file>
         <file>Wall.qml</file>
         <file>Face.qml</file>
         <file>RectangleCollider.qml</file>
         <file>CircleCollider.qml</file>
         <file>CollisionManager.js</file>
+        <file>BorderWalls.qml</file>
+        <file>CounterBox.qml</file>
+        <file>topDownGame/SmoothMovementPlayer.qml</file>
+        <file>topDownGame/GridBasedPlayer.qml</file>
+        <file>cardGame/Card.qml</file>
+        <file>cardGame/Hand.qml</file>
     </qresource>
 </RCC>
