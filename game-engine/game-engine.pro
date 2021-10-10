@@ -4,7 +4,9 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    collisionmanager.cpp
+    collisionmanager.cpp \
+    gameboard.cpp \
+    gridsquare.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,4 +17,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    collisionmanager.h
+    collisionmanager.h \
+    gameboard.h \
+    gridsquare.h

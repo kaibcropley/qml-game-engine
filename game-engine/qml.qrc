@@ -4,14 +4,19 @@
         <file>animations/MovementAnimation.qml</file>
         <file>Wall.qml</file>
         <file>Face.qml</file>
-        <file>RectangleCollider.qml</file>
-        <file>CircleCollider.qml</file>
+        <file>colliders/RectangleCollider.qml</file>
+        <file>colliders/CircleCollider.qml</file>
         <file>CollisionManager.js</file>
         <file>BorderWalls.qml</file>
         <file>CounterBox.qml</file>
+        <file>topDownGame/SmoothMovementEntity.qml</file>
         <file>topDownGame/SmoothMovementPlayer.qml</file>
-        <file>topDownGame/GridBasedPlayer.qml</file>
+        <file>gridGame/GameGrid.qml</file>
+        <file>gridGame/GridBasedEntity.qml</file>
+        <file>gridGame/GridBasedPlayer.qml</file>
         <file>cardGame/Card.qml</file>
         <file>cardGame/Hand.qml</file>
+        <file>Platformer.qml</file>
+        <file>Controller.qml</file>
     </qresource>
 </RCC>

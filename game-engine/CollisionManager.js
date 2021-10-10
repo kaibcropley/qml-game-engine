@@ -1,3 +1,11 @@
+.pragma library
+
+// CollisionManager.js is a JS layer between the front end and the C++ collision checking
+// It's meant to access object specific things (like checking if rect or circle) and use that to
+//      correctly call into collisionManager.cpp
+
+// In the future I plan to move collision checking to a worker script but for initial implementation this works and
+//      shows 0 performance hits so far
 
 function shapesCollide(shapeA, shapeB) {
     if (shapeA.colliderRectangle) {
@@ -7,23 +15,6 @@ function shapesCollide(shapeA, shapeB) {
     }
 }
 
-function rectanglesCollide(rectAPoint1, rectAPoint2, rectBPoint1, rectBPoint2) {
-    return (rectAPoint1.x < rectBPoint2.x &&
-            rectBPoint1.x < rectAPoint2.x &&
-            rectAPoint1.y < rectBPoint2.y &&
-            rectBPoint1.y < rectAPoint2.y);
-}
-
-
-function circlesCollide(aCenter, aRadius, bPoint, bRadius) {
-    return distanceBetweenCircles(aCenter, bPoint) < aRadius + bRadius;
-}
-
-function distanceBetweenCircles(aCenter, bPoint) {
-    var dx = aCenter.x - bPoint.x;
-    var dy = aCenter.y - bPoint.y;
-    return Math.sqrt(dx * dx + dy * dy);
-}
 
 // From https://stackoverflow.com/questions/401847/circle-rectangle-collision-detection-intersection
 // User e.James - https://stackoverflow.com/users/33686/e-james
@@ -47,13 +38,13 @@ function circleWillCollide(cirCenter, cirRadius, otherShape) {
     if (otherShape.colliderRectangle) { // Circle && Rect
         return circleAndRectangleCollide(cirCenter, cirRadius, otherShape.getCenterCoordinates(), otherShape.width, otherShape.height);
     } else { // Circle && Circle
-        return circlesCollide(cirCenter, cirRadius, otherShape.getCenterCoordinates(), otherShape.radius);
+        return collisionManager.circlesCollide(cirCenter, cirRadius, otherShape.getCenterCoordinates(), otherShape.radius);
     }
 }
 
 function rectangleWillCollide(rectPoint1, rectPoint2, otherShape) {
     if (otherShape.colliderRectangle) { // Rect && Rect
-        return rectanglesCollide(rectPoint1, rectPoint2, otherShape.getTopLeftCoordinates(), otherShape.getBotRightCoordinates());
+        return collisionManager.rectanglesCollide(rectPoint1, rectPoint2, otherShape.getTopLeftCoordinates(), otherShape.getBotRightCoordinates());
     } else { // Rect && Circle
         return circleAndRectangleCollide(otherShape.getCenterCoordinates(), otherShape.radius, getRectangleCenterCoordinates(rectPoint1, rectPoint2), Math.abs(rectPoint1.x - rectPoint2.x), Math.abs(rectPoint1.y - rectPoint1.y));
     }

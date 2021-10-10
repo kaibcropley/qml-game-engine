@@ -1,9 +1,17 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: testBox
+    id: rectCollider
 
     property bool colliderRectangle: true
+
+    function getAsQRect() {
+        return Qt.rect(rectCollider.x, rectCollider.y, rectCollider.width, rectCollider.height);
+    }
+
+    function getCenterCoordinates() {
+        return Qt.point(x + (width / 2), y + (height / 2));
+    }
 
     property int centerX: x + (width / 2)
     property int centerY: y + (height / 2)
@@ -16,9 +24,6 @@ Rectangle {
         return Qt.point(x + width, y + height);
     }
 
-    function getCenterCoordinates() {
-        return Qt.point(x + (width / 2), y + (height / 2));
-    }
 
     function isTouchingRect(other) {
         var topLeft = getTopLeftCoordinates();
