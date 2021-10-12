@@ -44,16 +44,16 @@ Item {
     Keys.onReleased: {
         if (disableAutoRepeat && event.isAutoRepeat)
             return;
-        if(event.key == Qt.Key_Left){
+        if(event.key === Qt.Key_Left){
             stopMovingLeft();
         }
-        if(event.key == Qt.Key_Right){
+        if(event.key === Qt.Key_Right){
             stopMovingRight();
         }
-        if(event.key == Qt.Key_Up){
+        if(event.key === Qt.Key_Up){
             stopMovingUp();
         }
-        if(event.key == Qt.Key_Down){
+        if(event.key === Qt.Key_Down){
             stopMovingDown();
         }
     }

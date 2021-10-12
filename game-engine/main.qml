@@ -2,7 +2,7 @@ import QtQuick 2.6
 import QtQuick.Window 2.2
 import "qrc:/colliders/"
 import "qrc:/gridGame/"
-import kcropley.gridsquare 1.0
+import kcropley.grid 1.0
 //import "qrc:/cardGame/"
 //import "qrc:/CollisionManager.js" as CollisionManager
 
@@ -16,20 +16,31 @@ Window {
     property bool collisionsRunning: true
 
     Component.onCompleted: {
-        gameBoard.createRandomizedGameBoard(10, 10);
-        var test = gameBoard.gameBoardToOneDimension();
-        console.log(test);
+        gameBoard.createRandomizedGameBoard(gameGrid.columns, gameGrid.rows);
     }
 
-//    GameGrid {
-//        id: gameGrid
-//        columns: 10
-//        rows: 10
-//        anchors {
-//            fill: parent
-//        }
-//    }
+    GameGrid {
+        id: gameGrid
+        columns: 5
+        rows: 5
+        anchors {
+            fill: parent
+        }
 
+        Component.onCompleted: {
+            var board = gameBoard.gameBoardToOneDimension()
+            model = board;
+//            var newModel = [];
+//            for (var i=0; i < gameGrid.columns * gameGrid.rows; i++) {
+//                if (board[i].squareType === 0) {
+//                    newModel[i] = "dirt";
+//                } else {
+//                    newModel[i] = "grass";
+//                }
+//            }
+//            model = newModel;
+        }
+    }
 
 //    GridBasedPlayer {
 //        width: 50
@@ -38,15 +49,39 @@ Window {
 //        movementDelay: 300
 //        x: 30
 //        y: 30
-//        gridX: 0
-//        gridY: 0
+////        gridX: gridEntity.gridX
+////        gridY: gridEntity.gridY
 
 //        onMovementStopped: {
-//            gameGrid.eatFruit(gridX, gridY);
+//            gridEntity.gridX = gridX;
+//            gridEntity.gridY = gridY;
 //        }
 //    }
 
+    GridBasedEntity {
+        id: entity
+        width: 50
+        height: 50
+        color: "blue"
 
+        x: (gridEntity.gridX * 100) + 25
+        y: (gridEntity.gridY * 100) + 25
+
+        Component.onCompleted: {
+            entityManager.registerEntity(gridEntity);
+            entityManager.findPath(4, 2);
+//            gridEntity.findPath(0, 4, 2);
+//            while (gridEntity.gridX != 5 || gridEntity.gridY != 9) {
+//                gridEntity.findPath(0, 5, 9);
+//            }
+        }
+        focus: true
+
+        Keys.onSpacePressed: {
+            entityManager.updateEntities();
+//            gridEntity.followPath(1);
+        }
+    }
 
 
 

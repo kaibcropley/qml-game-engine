@@ -6,61 +6,58 @@ GameBoard::GameBoard(QObject *parent) : QObject(parent)
 
 }
 
-void GameBoard::setGameBoard(QVector<QVector<GridSquare *>> newBoard)
+void GameBoard::setGameBoard(QVector<QVector<GridSquareData *>> newBoard)
 {
     m_gameBoard = newBoard;
 }
 
-QVector<QVector<GridSquare *>> GameBoard::gameBoard()
+QVector<QVector<GridSquareData *>> GameBoard::gameBoard()
 {
     return m_gameBoard;
 }
 
-// Expected that all rows are equal size
-GridSquare * GameBoard::gameBoardToOneDimension()
+GridSquareData* GameBoard::at(int x, int y)
 {
-    int currentOneDimensionalIndex = 0;
-    int oneDimensionalSize = m_gameBoard.size() * m_gameBoard.at(0).size(); // All rows are equal size requirement
-    GridSquare oneDimensionalBoard[oneDimensionalSize];
-    for(int i = 0; i < m_gameBoard.size(); i++)
-    {
-        for(int x = 0; x < m_gameBoard.at(i).size(); x++) // Initialize starting with
-        {
-            oneDimensionalBoard[currentOneDimensionalIndex] = *(m_gameBoard.at(i).at(x));
-            currentOneDimensionalIndex++;
-        }
-    }
-    return oneDimensionalBoard;
-
-//    QVector<GridSquare> oneDimensionalBoard;
-//    for(int i = 0; i < m_gameBoard.size(); i++)
-//    {
-//        for(int i = 0; i < m_gameBoard.at(i).size(); i++) // Initialize starting with
-//        {
-//            qDebug() << m_gameBoard.at(i).at(i);
-////            oneDimensionalBoard.append(m_gameBoard.at(i).at(i));
-//        }
-//    }
-////    qDebug() << oneDimensionalBoard;
-//    return oneDimensionalBoard;
+    return getSquare(x, y);
 }
 
-GridSquare GameBoard::getSquare(int x, int y)
+GridSquareData* GameBoard::getSquare(int x, int y)
 {
-    GridSquare square = (m_gameBoard.at(x).at(y));
-    return square;
+    return (m_gameBoard.at(x).at(y));
+}
+
+// Returns a QVariantMap/JSON obj with data for the UI
+QVariantMap GameBoard::getSquareMap(int x, int y)
+{
+    return (m_gameBoard.at(x).at(y))->toQVariantMap();
+}
+
+// Returns an array of QVariantMap/JSON objects as one long array for the grid repeater
+QVariant GameBoard::gameBoardToOneDimension()
+{
+    QVariantList oneDimensionalBoard;
+    for(int y = 0; y < m_gameBoard.size(); y++)
+    {
+        for(int x = 0; x < m_gameBoard.at(y).size(); x++)
+        {
+            oneDimensionalBoard.append(getSquareMap(x, y));
+        }
+    }
+    return QVariant::fromValue(oneDimensionalBoard);
 }
 
 void GameBoard::createRandomizedGameBoard(int height, int width)
 {
-    m_gameBoard = QVector<QVector<GridSquare *>>();
+    m_gameBoard = QVector<QVector<GridSquareData *>>();
     for(int i = 0; i < height; i++) // Initialize starting with row by row
     {
-        QVector<GridSquare *> currRow;
+        QVector<GridSquareData *> currRow;
         for(int x = 0; x < width; x++) // Initialize starting with
         {
-            GridSquare *newSquare = new GridSquare(this);
-            newSquare.setSquareType(static_cast<GridSquare::BoardSquareType>(qrand() % 2));
+            GridSquareData *newSquare = new GridSquareData();
+            newSquare->setSquareType(static_cast<GridSquareData::BoardSquareType>(qrand() % 2));
+            newSquare->setBlocked((qrand() % 10) == 1);
+            newSquare->setContainsFood((qrand() % 5) == 1);
             currRow.append(newSquare);
         }
         m_gameBoard.append(currRow);

@@ -6,7 +6,10 @@ CONFIG += c++11
 SOURCES += main.cpp \
     collisionmanager.cpp \
     gameboard.cpp \
-    gridsquare.cpp
+    gridentity.cpp \
+    gridsquaredata.cpp \
+    gridentityfactory.cpp \
+    entitymanager.cpp
 
 RESOURCES += qml.qrc
 
@@ -19,4 +22,9 @@ include(deployment.pri)
 HEADERS += \
     collisionmanager.h \
     gameboard.h \
-    gridsquare.h
+    gridsquaremodel.h \
+    movementmanager.h \
+    gridentity.h \
+    gridsquaredata.h \
+    gridentityfactory.h \
+    entitymanager.h

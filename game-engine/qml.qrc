@@ -18,5 +18,6 @@
         <file>cardGame/Hand.qml</file>
         <file>Platformer.qml</file>
         <file>Controller.qml</file>
+        <file>gridGame/GridSquare.qml</file>
     </qresource>
 </RCC>

@@ -6,6 +6,8 @@ Grid {
     property int squareWidth: 100
     property int squareHeight: 100
 
+    property alias model: gridRepeater.model
+
     function eatFruit(gridX, gridY) {
         var square = getSquare(gridX, gridY);
         if (square !== null && square.state === "fruit") {
@@ -23,61 +25,14 @@ Grid {
 
     Repeater {
         id: gridRepeater
-        Component.onCompleted: {
-            var newModel = [];
-            for (var i=0; i < 100; i++) {
-                if (i % 10 === 0 || i % 10 === 9) {
-                    newModel[i] = "dirt";
-                } else if (i % 5 === 0) {
-                    newModel[i] = "fruit";
-                } else {
-                    newModel[i] = "grass";
-                }
-            }
-            model = newModel;
-        }
 
-        delegate: Rectangle {
-            id: ground
-            property int gridX: index % gameGrid.columns
-            property int gridY: index / gameGrid.columns
-
-            border.color: "black"
-            border.width: 3
+        delegate: GridSquare {
+            id: square
             width: squareWidth
             height: squareHeight
 
-            state: modelData
+//            ground.state: modelData.squareType
 
-            color: ground.state === "dirt" ? "orange" : "lightgreen"
-
-            Rectangle {
-                id: fruit
-                width: parent.width / 3
-                height: width
-                color: "darkred"
-                anchors.centerIn: parent
-                radius: width / 2
-
-                visible: ground.state === "fruit"
-            }
-
-            Text {
-                anchors.centerIn: parent
-                text: index
-            }
-
-            states: [
-                State {
-                    name: "dirt"
-                },
-                State {
-                    name: "grass"
-                },
-                State {
-                    name: "fruit"
-                }
-            ]
         }
     }
 }

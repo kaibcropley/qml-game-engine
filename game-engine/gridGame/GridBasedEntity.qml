@@ -1,9 +1,16 @@
 import QtQuick 2.5
+import kcropley.grid 1.0
 import "qrc:/"
 import "qrc:/colliders/"
 
 CircleCollider {
     id: entity
+
+    GridEntity {
+        id: gridEntityObj
+    }
+
+    property alias gridEntity: gridEntityObj
 
     // Change in x or y for each movement
     property int dx: 100
@@ -112,7 +119,7 @@ CircleCollider {
 
     function checkMovementDelay() {
         if (movementDelay > 0) {
-            movementEnabled = false;
+//            movementEnabled = false;
             movementDelayTimer.restart();
         }
     }
