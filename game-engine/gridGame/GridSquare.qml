@@ -22,33 +22,25 @@ GridSquareData {
 
         state: modelData.squareType === 0 ? "dirt" : "grass"
 
-        color: ground.state === "dirt" ? "orange" : "lightgreen"
+        Image {
+            anchors.fill: parent
+            source: "../images/stars/Space_Stars8.png"
+        }
 
-        Rectangle {
-            id: fruit
-            width: parent.width / 3
-            height: width
-            color: "darkred"
-            anchors.centerIn: parent
-            radius: width / 2
-
+        Image {
             visible: modelData.containsFood
-        }
-
-        Rectangle {
-            id: rock
-            width: parent.width / 3
+            anchors.centerIn: parent
+            width: parent.width / 4
             height: width
-            color: "black"
-            anchors.centerIn: parent
-            radius: width / 2
-
-            visible: modelData.blocked
+            source: "../images/stars/cartoon-star.png"
         }
 
-        Text {
+        Image {
+            visible: modelData.blocked
             anchors.centerIn: parent
-            text: index
+            width: parent.width / 4
+            height: width
+            source: "../images/stone-single.png"
         }
 
         states: [

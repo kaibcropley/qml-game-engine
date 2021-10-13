@@ -25,6 +25,6 @@ void EntityManager::findPath(int targetX, int targetY)
         qDebug() << "EntityManager::findPath" << "Found nullptr";
         return;
     }
-    qDebug() << "EntityManager::findPath(" << targetX << "," << targetY << ")";
-    target->findPath(gameBoard->gameBoard(), targetX, targetY);
+//    qDebug() << "EntityManager::findPath(" << targetX << "," << targetY << ")";
+    target->findPath(gameBoard->getGameBoard(), targetX, targetY);
 }

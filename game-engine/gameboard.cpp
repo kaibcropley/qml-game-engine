@@ -1,4 +1,5 @@
 #include "gameboard.h"
+#include <QTime>
 #include <QDebug>
 
 GameBoard::GameBoard(QObject *parent) : QObject(parent)
@@ -11,7 +12,7 @@ void GameBoard::setGameBoard(QVector<QVector<GridSquareData *>> newBoard)
     m_gameBoard = newBoard;
 }
 
-QVector<QVector<GridSquareData *>> GameBoard::gameBoard()
+QVector<QVector<GridSquareData *>> GameBoard::getGameBoard()
 {
     return m_gameBoard;
 }
@@ -55,11 +56,20 @@ void GameBoard::createRandomizedGameBoard(int height, int width)
         for(int x = 0; x < width; x++) // Initialize starting with
         {
             GridSquareData *newSquare = new GridSquareData();
-            newSquare->setSquareType(static_cast<GridSquareData::BoardSquareType>(qrand() % 2));
-            newSquare->setBlocked((qrand() % 10) == 1);
-            newSquare->setContainsFood((qrand() % 5) == 1);
+            newSquare->setSquareType(static_cast<GridSquareData::BoardSquareType>(getRandomInt() % 2));
+            newSquare->setBlocked(false); // (getRandomInt() % 8) == 1);
+            if (!newSquare->getBlocked()) {
+                newSquare->setContainsFood((getRandomInt() % 5) == 1);
+            } else {
+                newSquare->setContainsFood(false);
+            }
             currRow.append(newSquare);
         }
         m_gameBoard.append(currRow);
     }
+}
+
+int GameBoard::getRandomInt()
+{
+    return qrand();
 }

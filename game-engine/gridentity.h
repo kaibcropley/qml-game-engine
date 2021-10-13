@@ -24,7 +24,6 @@ public:
     };
     Q_ENUM(MovementDirections)
 
-
     // Constructors
     explicit GridEntity(QQuickItem *parent = 0, int startX = 0, int startY = 0);
     GridEntity(const GridEntity &other);
@@ -48,8 +47,13 @@ public:
     Q_INVOKABLE void followPath(int maxSteps);
     void followPath(int maxSteps, QVector<MovementDirections> &path);
 
-    bool canMoveTo(QVector<QVector<GridSquareData *>> *gameBoard, int x, int y);
+    bool canMoveTo(QVector<QVector<GridSquareData *>> *gameBoard, QPoint point);
     bool canMoveTo(GridSquareData * square);
+
+    GridSquareData * getValue(QVector<QVector<GridSquareData *>> *gameBoard, int x, int y);
+    QPoint movePointDirection(MovementDirections direction, QPoint p, int changeLength = 1);
+//    Node createNode(QPoint source, QPoint current, QPoint target);
+    bool dijkstra(QVector<QVector<GridSquareData *>> *gameBoard, QPoint source, QPoint target);
 
 
 //    void solveMaze(GameBoard gameBoard, int targetX, int targetY);

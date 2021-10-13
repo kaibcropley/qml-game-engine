@@ -15,7 +15,7 @@ public:
     // Cannot be Q_INVOKABLE due QVector<QVector<int>> not being a valid type
     //  See here for info https://doc.qt.io/qt-5/qtqml-cppintegration-data.html
     void setGameBoard(QVector<QVector<GridSquareData *>> newBoard);
-    QVector<QVector<GridSquareData *>> gameBoard();
+    QVector<QVector<GridSquareData *>> getGameBoard();
 
     // Returns a QVariantMap/JSON obj with data for the UI
     Q_INVOKABLE QVariantMap getSquareMap(int x, int y);
@@ -33,6 +33,8 @@ signals:
 public slots:
 
 private:
+    int getRandomInt(); // TODO get out of here into a lib class
+
     QVector<QVector<GridSquareData *>> m_gameBoard;
 };
 

@@ -10,8 +10,8 @@ CollisionManager::CollisionManager(QObject *parent) : QObject(parent)
 
 bool CollisionManager::rectanglesCollide(QRect rectA, QRect rectB)
 {
-    qDebug() << rectA;
-    qDebug() << rectA.intersects(rectB);
+//    qDebug() << rectA;
+//    qDebug() << rectA.intersects(rectB);
     return false;
 }
 

@@ -21,42 +21,16 @@ Window {
 
     GameGrid {
         id: gameGrid
-        columns: 5
-        rows: 5
+        columns: 10
+        rows: 10
         anchors {
             fill: parent
         }
 
         Component.onCompleted: {
-            var board = gameBoard.gameBoardToOneDimension()
-            model = board;
-//            var newModel = [];
-//            for (var i=0; i < gameGrid.columns * gameGrid.rows; i++) {
-//                if (board[i].squareType === 0) {
-//                    newModel[i] = "dirt";
-//                } else {
-//                    newModel[i] = "grass";
-//                }
-//            }
-//            model = newModel;
+            model = gameBoard.gameBoardToOneDimension();
         }
     }
-
-//    GridBasedPlayer {
-//        width: 50
-//        height: 50
-//        color: "red"
-//        movementDelay: 300
-//        x: 30
-//        y: 30
-////        gridX: gridEntity.gridX
-////        gridY: gridEntity.gridY
-
-//        onMovementStopped: {
-//            gridEntity.gridX = gridX;
-//            gridEntity.gridY = gridY;
-//        }
-//    }
 
     GridBasedEntity {
         id: entity
@@ -69,16 +43,12 @@ Window {
 
         Component.onCompleted: {
             entityManager.registerEntity(gridEntity);
-            entityManager.findPath(4, 2);
-//            gridEntity.findPath(0, 4, 2);
-//            while (gridEntity.gridX != 5 || gridEntity.gridY != 9) {
-//                gridEntity.findPath(0, 5, 9);
-//            }
+            entityManager.findPath(8, 2);
         }
         focus: true
 
         Keys.onSpacePressed: {
-            entityManager.updateEntities();
+//            entityManager.updateEntities();
 //            gridEntity.followPath(1);
         }
     }

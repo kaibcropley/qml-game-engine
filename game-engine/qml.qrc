@@ -19,5 +19,8 @@
         <file>Platformer.qml</file>
         <file>Controller.qml</file>
         <file>gridGame/GridSquare.qml</file>
+        <file>images/stars/Space_Stars8.png</file>
+        <file>images/stars/cartoon-star.png</file>
+        <file>images/stone-single.png</file>
     </qresource>
 </RCC>
