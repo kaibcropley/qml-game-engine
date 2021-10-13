@@ -9,6 +9,7 @@
 #include "gridentity.h"
 #include "gridentityfactory.h"
 #include "entitymanager.h"
+#include "gridmatrix.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +25,9 @@ int main(int argc, char *argv[])
 //    GridEntityFactory gridEntityFactory;
     CollisionManager collisionManager;
     GameBoard gameBoard;
-    EntityManager entityManager(0, &gameBoard);
+
+    GridMatrix matrix;
+    EntityManager entityManager(0, &matrix);
 //    engine.rootContext()->setContextProperty("gridEntityFactory", &gridEntityFactory);
     engine.rootContext()->setContextProperty("collisionManager", &collisionManager);
     engine.rootContext()->setContextProperty("gameBoard", &gameBoard);

@@ -1,5 +1,6 @@
 #include "gridentity.h"
 #include <QtMath>
+#include <QLinkedList>
 
 //GridEntity::GridEntity(QObject *parent) : QObject(parent)
 //{
@@ -182,48 +183,7 @@ bool GridEntity::findNextPathStep(QVector<QVector<GridSquareData *>> *gameBoard,
     return findNextPathStep(gameBoard, newX, newY, targetX, targetY);
 }
 
-struct Node {
-    Node const *parent;
-    QPoint loc;
-    int g = 1;
-    int h;
-    int f;
 
-    Node()
-    {
-        qDebug() << "SOMEONE IS INCORRECTLY GENERATING NODES";
-    }
-
-    Node(QPoint source, QPoint current, QPoint target)
-    {
-        // Distance estimation: Manhattan Distance - https://xlinux.nist.gov/dads/HTML/manhattanDistance.html
-        // G = the movement cost to move from the starting point A to a given square on the grid
-        g = 1; //For now use 1 //qFabs(source.x() - current.x()) + qFabs(source.y() - current.y());
-        // H = the estimated movement cost to move from that given square on the grid to the final destination
-        h = qFabs(source.x() - target.x()) + qFabs(source.y() - target.y());
-
-        f = g + h;
-        loc = current;
-    }
-
-    Node(Node const *par, QPoint source, QPoint current, QPoint target)
-    {
-        parent = par;
-        // Distance estimation: Manhattan Distance - https://xlinux.nist.gov/dads/HTML/manhattanDistance.html
-        // G = the movement cost to move from the starting point A to a given square on the grid
-        g = par->g + 1; //qFabs(source.x() - current.x()) + qFabs(source.y() - current.y());
-        // H = the estimated movement cost to move from that given square on the grid to the final destination
-        h = qFabs(source.x() - target.x()) + qFabs(source.y() - target.y());
-
-        f = g + h;
-        loc = current;
-    }
-
-    bool operator ==(const Node &other) const
-    {
-        return loc == other.loc; //&& g == other.g && h == other.h && f == other.f;
-    }
-};
 
 QPoint GridEntity::movePointDirection(MovementDirections direction, QPoint p, int changeLength)
 {
@@ -250,84 +210,106 @@ QPoint GridEntity::movePointDirection(MovementDirections direction, QPoint p, in
 
 // Dijkstra's algorithm for pathfinding
 //  https://wiki.jmonkeyengine.org/docs/3.3/contributions/_attachments/Astar.pdf
+//  Current implementation notes
+//      This currently will fail to update a grid's parent if we find a faster way to that square, this isn't a big issue with movement being limited to 1 square tho
 bool GridEntity::dijkstra(QVector<QVector<GridSquareData *>> *gameBoard, QPoint source, QPoint target)
 {
-    Node *startNode = new Node(source, source, target);
+//    Node startNode(source, source, target);
 
-    QVector<Node> unvisitedSquares; // open list
-    QVector<Node> visitedSquares; //closed list
-    unvisitedSquares.append(*startNode);
+//    QVector<Node> unvisitedSquares; // open list
+//    QVector<Node> visitedSquares; //closed list
+//    unvisitedSquares.append(startNode);
 
-    Node current = *startNode;
+//    Node *current = &startNode;
 
-    while (unvisitedSquares.size() > 0)
-    {
-        if (current.loc == target) {
-            qDebug() << "Success!!!";
-            return true;
-        }
+//    while (unvisitedSquares.size() > 0)
+//    {
+//        if (current->loc == target) {
+//            qDebug() << "Success!!!";
 
-        Node lowest = unvisitedSquares.at(0);
-        int lowestIndex = 0;
-        for (int i = 0; i < unvisitedSquares.size(); i++) {
-            if (lowest.f > unvisitedSquares.at(i).f) {
-                lowest = unvisitedSquares.at(i);
-                lowestIndex = i;
-            }
-        }
-        current = lowest;
-        visitedSquares.append(lowest);
-        unvisitedSquares.remove(lowestIndex);
+//            qDebug() << "Test" << visitedSquares.at(1).loc << visitedSquares.at(1).parent->loc;
 
-//        qDebug() << "Visited locations";
-//        for (int i = 0; i < visitedSquares.size(); i++) {
-//            qDebug() << "    Point:" << visitedSquares.at(i).loc;
+//            Node *currentPtr = &current;
+//            QLinkedList<QPoint> path;
+//            while (currentPtr->parent != nullptr) {
+//                qDebug() << "adding path:" << currentPtr->loc << "With parent" << currentPtr->parent->loc;
+//                path.prepend(currentPtr->loc);
+//                if (currentPtr->loc == currentPtr->parent->loc) {
+//                    qDebug() << "Same obj";
+//                    return false;
+//                }
+//                currentPtr = currentPtr->parent;
+//            }
+
+//            QLinkedList<QPoint>::iterator i;
+//            for (i = path.begin(); i != path.end(); ++i) {
+//                qDebug() << *i;
+//            }
+//            qDebug() << "path len:" << path.size();
+
+//            return true;
 //        }
 
-        // Nodes
-        QPoint north = movePointDirection(MovementDirections::GRID_N, current.loc);
-        QPoint south = movePointDirection(MovementDirections::GRID_S, current.loc);
-        QPoint west = movePointDirection(MovementDirections::GRID_W, current.loc);
-        QPoint east = movePointDirection(MovementDirections::GRID_E, current.loc);
-        qDebug() << "Current:" << current.loc;
-        qDebug() << "All points around current" << north << south << west << east;
+//        Node *lowest = unvisitedSquares.at(0);
+//        int lowestIndex = 0;
+//        for (int i = 0; i < unvisitedSquares.size(); i++) {
+//            if (lowest->f > unvisitedSquares.at(i).f) {
+//                lowest = unvisitedSquares.at(i);
+//                lowestIndex = i;
+//            }
+//        }
+//        current = lowest;
+//        visitedSquares.append(&lowest);
+//        unvisitedSquares.remove(lowestIndex);
 
-        // Add intial possible movement options
-        if (canMoveTo(gameBoard, north)) {
-            Node newNode(&current, source, north, target);
-            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
-                unvisitedSquares.append(newNode);
-            }
-        }
-        if (canMoveTo(gameBoard, south)) {
-            Node newNode(&current, source, south, target);
-            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
-                unvisitedSquares.append(newNode);
-            }
-//            unvisitedSquares.append(Node(source, south, target));
-        }
-        if (canMoveTo(gameBoard, west)) {
-            Node newNode(&current, source, west, target);
-            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
-                unvisitedSquares.append(newNode);
-            }
-        }
-        if (canMoveTo(gameBoard, east)) {
-            Node newNode(&current, source, east, target);
-            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
-                unvisitedSquares.append(newNode);
-            }
-//            unvisitedSquares.append(Node(source, east, target));
-        }
+////        qDebug() << "Visited locations";
+////        for (int i = 0; i < visitedSquares.size(); i++) {
+////            qDebug() << "    Point:" << visitedSquares.at(i).loc;
+////        }
 
-        if (unvisitedSquares.size() == 0) {
-            qDebug() << "Tested every location";
-            return false;
-        }
-    }
+//        // Nodes
+//        QPoint north = movePointDirection(MovementDirections::GRID_N, current->loc);
+//        QPoint south = movePointDirection(MovementDirections::GRID_S, current->loc);
+//        QPoint west = movePointDirection(MovementDirections::GRID_W, current->loc);
+//        QPoint east = movePointDirection(MovementDirections::GRID_E, current->loc);
+////        qDebug() << "Current:" << current->loc;
+////        qDebug() << "All points around current" << north << south << west << east;
 
-    return false;
-    delete startNode;
+//        // Add intial possible movement options
+//        if (canMoveTo(gameBoard, north)) {
+//            Node newNode(*current, source, north, target);
+//            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
+//                unvisitedSquares.append(newNode);
+//            }
+//        }
+//        if (canMoveTo(gameBoard, south)) {
+//            Node newNode(*current, source, south, target);
+//            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
+//                unvisitedSquares.append(newNode);
+//            }
+////            unvisitedSquares.append(Node(source, south, target));
+//        }
+//        if (canMoveTo(gameBoard, west)) {
+//            Node newNode(*current, source, west, target);
+//            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
+//                unvisitedSquares.append(newNode);
+//            }
+//        }
+//        if (canMoveTo(gameBoard, east)) {
+//            Node newNode(*current, source, east, target);
+//            if (!unvisitedSquares.contains(newNode) && !visitedSquares.contains(newNode)) {
+//                unvisitedSquares.append(newNode);
+//            }
+////            unvisitedSquares.append(Node(source, east, target));
+//        }
+
+//        if (unvisitedSquares.size() == 0) {
+//            qDebug() << "Tested every location, no path found";
+//            return false;
+//        }
+//    }
+
+//    return false;
 }
 
 GridSquareData * GridEntity::getValue(QVector<QVector<GridSquareData *>> *gameBoard, int x, int y)
@@ -339,10 +321,8 @@ bool GridEntity::canMoveTo(QVector<QVector<GridSquareData *>> *gameBoard, QPoint
 {
     // If in bounds, can then check square
     if (point.x() >= 0 && point.x() < gameBoard->size() && point.y() >= 0 && point.y() < gameBoard->at(point.x()).size()) {
-        qDebug() << "Testing in bounds" << point;
         return canMoveTo(gameBoard->at(point.x()).at(point.y()));
     }
-    qDebug() << "Out of bounds:" << point;
     return false;
 }
 

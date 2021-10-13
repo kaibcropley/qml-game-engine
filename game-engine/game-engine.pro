@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     gridentity.cpp \
     gridsquaredata.cpp \
     gridentityfactory.cpp \
-    entitymanager.cpp
+    entitymanager.cpp \
+    gridmatrix.cpp \
+    pathfinder.cpp
 
 RESOURCES += qml.qrc
 
@@ -22,9 +24,9 @@ include(deployment.pri)
 HEADERS += \
     collisionmanager.h \
     gameboard.h \
-    gridsquaremodel.h \
-    movementmanager.h \
     gridentity.h \
     gridsquaredata.h \
     gridentityfactory.h \
-    entitymanager.h
+    entitymanager.h \
+    gridmatrix.h \
+    pathfinder.h

@@ -3,17 +3,17 @@
 
 #include <QObject>
 #include "gridentity.h"
-#include "gameboard.h"
+#include "gridmatrix.h"
 
 class EntityManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit EntityManager(QObject *parent = 0, GameBoard *incomingGameBoard = nullptr);
+    explicit EntityManager(QObject *parent = 0, GridMatrix *incomingGridMatrix = nullptr);
 
     Q_INVOKABLE bool registerEntity(GridEntity *entity);
 
-    Q_INVOKABLE void findPath(int targetX, int targetY);
+    Q_INVOKABLE void findPath(QPoint source, QPoint target);
     Q_INVOKABLE void updateEntities();
 
 signals:
@@ -24,9 +24,7 @@ private:
     // TODO turn into list of targets -- Useful if qquick item https://doc.qt.io/archives/qt-5.6/qqmllistproperty.html
     GridEntity *target;
 
-    GameBoard *gameBoard;
-
-
+    GridMatrix *gridMatrix;
 };
 
 #endif // ENTITYMANAGER_H

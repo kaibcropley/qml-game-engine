@@ -43,7 +43,7 @@ Window {
 
         Component.onCompleted: {
             entityManager.registerEntity(gridEntity);
-            entityManager.findPath(8, 2);
+            entityManager.findPath(Qt.point(0,0), Qt.point(8, 6));
         }
         focus: true
 

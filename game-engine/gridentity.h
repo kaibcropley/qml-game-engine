@@ -20,7 +20,6 @@ public:
         GRID_NW,
         GRID_SE,
         GRID_SW
-
     };
     Q_ENUM(MovementDirections)
 
@@ -36,6 +35,9 @@ public:
     int getGridX();
     void setGridY(int newY);
     int getGridY();
+
+    void setPos(QPoint pos);
+    QPoint getPos();
 
     Q_INVOKABLE bool moveTo(int newX, int newY);
     bool step(MovementDirections direction);
@@ -68,8 +70,10 @@ public slots:
 private:
     int m_gridX;
     int m_gridY;
+    QPoint pos;
 
     QVector<MovementDirections> m_path;
+    QVector<QPoint> m_plannedPath;
 };
 
 #endif // ENTITY_H
