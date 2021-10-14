@@ -83,11 +83,8 @@ public:
     };
 //    Q_ENUM(MovementDirections)
 
-//    explicit PathFinder(QObject *parent = 0);
-
-    void findPath(GridMatrix *gameBoard, QPoint source, QPoint target);
-    bool dijkstra(GridMatrix *gameBoard, QPoint source, QPoint target);
-
+    QVector<QPoint> findPath(GridMatrix *gameBoard, QPoint source, QPoint target);
+    QVector<QPoint> dijkstra(GridMatrix *gameBoard, QPoint source, QPoint target);
 
     // Path finding helpers
     bool isMoveValid(GridMatrix *gameBoard, QPoint point);

@@ -7,10 +7,14 @@ CircleCollider {
     id: entity
 
     GridEntity {
-        id: gridEntityObj
+        id: gridEntity
     }
 
-    property alias gridEntity: gridEntityObj
+    property alias gridEntity: gridEntity
+
+    // Position within grid
+    property alias gridX: gridEntity.gridX
+    property alias gridY: gridEntity.gridY
 
     // Change in x or y for each movement
     property int dx: 100
@@ -24,7 +28,7 @@ CircleCollider {
     property alias movementDelay: movementDelayTimer.interval
     property bool teleport: false // Disables smoothed movement and teleports player
 
-    // Enable/Disable movement on axis
+    // Enable/Disable movement on axis Note is overwritten by directional enablers
     property bool horizontalMovementEnabled: movementEnabled
     property bool verticalMovementEnabled: movementEnabled
 
@@ -34,10 +38,7 @@ CircleCollider {
     property bool upMovementEnabled: verticalMovementEnabled
     property bool downMovementEnabled: verticalMovementEnabled
 
-    // Believed position within grid
-    property int gridX
-    property int gridY
-
+    // Movement signals
     signal movementStarted()
     signal movementStopped()
 
@@ -75,7 +76,7 @@ CircleCollider {
         }
     }
 
-    // Forces a delay between player movements
+    // Forces a delay between movements
     Timer {
         id: movementDelayTimer
         interval: 0 // Set interval default to 0 to ensure it only triggers if the caller sets movementDelay

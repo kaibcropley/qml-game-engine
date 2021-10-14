@@ -8,20 +8,10 @@
 class GridEntity : public QQuickItem
 {
     Q_OBJECT
+    Q_PROPERTY(QPoint gridPos READ getGridPos WRITE setGridPos NOTIFY onGridPosChanged)
     Q_PROPERTY(int gridX READ getGridX WRITE setGridX NOTIFY onGridXChanged)
     Q_PROPERTY(int gridY READ getGridY WRITE setGridY NOTIFY onGridYChanged)
 public:
-    enum MovementDirections {
-        GRID_W,
-        GRID_E,
-        GRID_N,
-        GRID_S,
-        GRID_NE,
-        GRID_NW,
-        GRID_SE,
-        GRID_SW
-    };
-    Q_ENUM(MovementDirections)
 
     // Constructors
     explicit GridEntity(QQuickItem *parent = 0, int startX = 0, int startY = 0);
@@ -30,50 +20,35 @@ public:
     // Operators
     GridEntity operator=(const GridEntity&);
 
-    // Grid X and Y getter and setters
-    void setGridX(int newX);
+    // Grid Positioning getters and setters
+    QPoint getGridPos();
+    void setGridPos(QPoint pos);
     int getGridX();
-    void setGridY(int newY);
+    void setGridX(int newX);
     int getGridY();
+    void setGridY(int newY);
 
-    void setPos(QPoint pos);
-    QPoint getPos();
+    void setPath(QVector<QPoint> path);
 
-    Q_INVOKABLE bool moveTo(int newX, int newY);
-    bool step(MovementDirections direction);
+    Q_INVOKABLE bool moveTo(QPoint target);
+//    bool step(MovementDirections direction);
 
-    Q_INVOKABLE void findPath(QVector<QVector<GridSquareData *>> gameBoard, int targetX, int targetY);
-    bool findNextPathStep(QVector<QVector<GridSquareData *>> *gameBoard, int currX, int currY, int targetX, int targetY);
-
+    Q_INVOKABLE void findPath(QPoint target);
     Q_INVOKABLE bool pathHasSteps();
-    Q_INVOKABLE void followPath(int maxSteps);
-    void followPath(int maxSteps, QVector<MovementDirections> &path);
-
-    bool canMoveTo(QVector<QVector<GridSquareData *>> *gameBoard, QPoint point);
-    bool canMoveTo(GridSquareData * square);
-
-    GridSquareData * getValue(QVector<QVector<GridSquareData *>> *gameBoard, int x, int y);
-    QPoint movePointDirection(MovementDirections direction, QPoint p, int changeLength = 1);
-//    Node createNode(QPoint source, QPoint current, QPoint target);
-    bool dijkstra(QVector<QVector<GridSquareData *>> *gameBoard, QPoint source, QPoint target);
-
-
-//    void solveMaze(GameBoard gameBoard, int targetX, int targetY);
-//    void mazeHelper(GameBoard *gameboard, int targetX, int targetY);
+    Q_INVOKABLE void followPath(int maxSteps = 1);
+    void followPath(QVector<QPoint> &path, int maxSteps = 1);
 
 signals:
     void onGridXChanged(int newX);
     void onGridYChanged(int newY);
+    void onGridPosChanged(QPoint pos);
 
 public slots:
 
 private:
-    int m_gridX;
-    int m_gridY;
-    QPoint pos;
+    QPoint m_gridPos;
 
-    QVector<MovementDirections> m_path;
-    QVector<QPoint> m_plannedPath;
+    QVector<QPoint> m_Path;
 };
 
 #endif // ENTITY_H

@@ -13,7 +13,8 @@ public:
 
     Q_INVOKABLE bool registerEntity(GridEntity *entity);
 
-    Q_INVOKABLE void findPath(QPoint source, QPoint target);
+    Q_INVOKABLE bool findPath(QPoint target); // Defaults
+    Q_INVOKABLE bool findPath(QPoint source, QPoint target);
     Q_INVOKABLE void updateEntities();
 
 signals:
@@ -22,7 +23,7 @@ public slots:
 
 private:
     // TODO turn into list of targets -- Useful if qquick item https://doc.qt.io/archives/qt-5.6/qqmllistproperty.html
-    GridEntity *target;
+    GridEntity *targetEntity;
 
     GridMatrix *gridMatrix;
 };

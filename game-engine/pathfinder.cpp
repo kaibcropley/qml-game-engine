@@ -1,6 +1,8 @@
 #include "pathfinder.h"
 #include <QtMath>
 
+#include <algorithm>    // std::reverse
+
 // Set singleton instance to 0
 PathFinder* PathFinder::m_instance = 0;
 
@@ -17,27 +19,27 @@ PathFinder* PathFinder::getInstance()
     return m_instance;
 }
 
-void PathFinder::findPath(GridMatrix *gridMatrix, QPoint source, QPoint target)
+QVector<QPoint> PathFinder::findPath(GridMatrix *gridMatrix, QPoint source, QPoint target)
 {
     if (gridMatrix->rows() < 1 || gridMatrix->columns() < 1) {
         qDebug() << "PathFinder::findPath: Invalid grid matrix";
-        return;
+        return QVector<QPoint>();
     }
 
     if (source == target) {
         qDebug() << "PathFinder::findPath: QPoint source == QPoint target";
-        return;
+        return QVector<QPoint>();
     }
 
-    qDebug() << "findPath( matrix," << source << "," << target << ")";
-    dijkstra(gridMatrix, source, target);
+    qDebug() << "PathFinder::findPath( matrix," << source << "," << target << ")";
+    return dijkstra(gridMatrix, source, target);
 }
 
 // Dijkstra's algorithm for pathfinding
 //  https://wiki.jmonkeyengine.org/docs/3.3/contributions/_attachments/Astar.pdf
 //  Current implementation notes
-//      This currently will fail to update a grid's parent if we find a faster way to that square, this isn't a big concern with movement being limited to 1 square tho
-bool PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoint target)
+//      The current implementation won'tupdate a grid's parent if we find a faster way to that square, this isn't a big concern with movement being limited to 1 square but will need tweaks later
+QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoint target)
 {
     // Start node can be found by parent == nullptr
     Node *startNode = new Node(source, calculateManhattanDistance(source, target));
@@ -48,12 +50,20 @@ bool PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoint target)
 
     Node *currentNode = startNode;
 
+    QVector<MovementDirections> movementOptions = {GRID_N, GRID_S, GRID_W, GRID_E, GRID_NW, GRID_NE, GRID_SW, GRID_SE};
+
     while (untestedNodes.size() > 0)
     {
         if (currentNode->loc == target) {
             qDebug() << "Success!!!";
-            qDebug() << "Winning spot:" << currentNode->loc << currentNode->parent->loc;
-            return true;
+            QVector<QPoint> path;
+            while(currentNode->parent != nullptr) {
+                path.append(currentNode->loc);
+                currentNode = currentNode->parent;
+            }
+            std::reverse(path.begin(), path.end());
+            qDebug() << path;
+            return path;
         }
 
         Node *lowest = untestedNodes.at(0);
@@ -68,45 +78,21 @@ bool PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoint target)
         testedNodes.append(lowest);
         untestedNodes.remove(lowestIndex);
 
-        QPoint north = movePointDirection(MovementDirections::GRID_N, currentNode->loc);
-        if (isMoveValid(gridMatrix, north)) {
-            if (!nodeVectorContainsPoint(untestedNodes, north) && !nodeVectorContainsPoint(testedNodes, north)) {
-                Node *newNode = new Node(*currentNode, north, calculateManhattanDistance(north, target));
-                untestedNodes.append(newNode);
-            }
-        }
 
-        QPoint south = movePointDirection(MovementDirections::GRID_S, currentNode->loc);
-        if (isMoveValid(gridMatrix, south)) {
-            if (!nodeVectorContainsPoint(untestedNodes, south) && !nodeVectorContainsPoint(testedNodes, south)) {
-                Node *newNode = new Node(*currentNode, south, calculateManhattanDistance(south, target));
-                untestedNodes.append(newNode);
+        QVectorIterator<MovementDirections> pathSteps(movementOptions);
+        while (pathSteps.hasNext()) {
+            QPoint currPoint = movePointDirection(pathSteps.next(), currentNode->loc);
+            if (isMoveValid(gridMatrix, currPoint)) {
+                if (!nodeVectorContainsPoint(untestedNodes, currPoint) && !nodeVectorContainsPoint(testedNodes, currPoint)) {
+                    Node *newNode = new Node(*currentNode, currPoint, calculateManhattanDistance(currPoint, target));
+                    untestedNodes.append(newNode);
+                }
             }
-        }
-
-        QPoint west = movePointDirection(MovementDirections::GRID_W, currentNode->loc);
-        if (isMoveValid(gridMatrix, west)) {
-            if (!nodeVectorContainsPoint(untestedNodes, west) && !nodeVectorContainsPoint(testedNodes, west)) {
-                Node *newNode = new Node(*currentNode, west, calculateManhattanDistance(west, target));
-                untestedNodes.append(newNode);
-            }
-        }
-
-        QPoint east = movePointDirection(MovementDirections::GRID_E, currentNode->loc);
-        if (isMoveValid(gridMatrix, east)) {
-            if (!nodeVectorContainsPoint(untestedNodes, east) && !nodeVectorContainsPoint(testedNodes, east)) {
-                Node *newNode = new Node(*currentNode, east, calculateManhattanDistance(east, target));
-                untestedNodes.append(newNode);
-            }
-        }
-
-        if (untestedNodes.size() == 0) {
-            qDebug() << "Tested every location, no path found";
-            return false;
         }
     }
 
-    return false;
+    qDebug() << "Tested every location, no path found";
+    return QVector<QPoint>();
 }
 
 bool PathFinder::nodeVectorContainsPoint(QVector<Node *> vec, QPoint point)

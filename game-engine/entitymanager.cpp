@@ -3,7 +3,7 @@
 
 EntityManager::EntityManager(QObject *parent, GridMatrix *incomingGridMatrix) :
     QObject(parent),
-    target(nullptr),
+    targetEntity(nullptr),
     gridMatrix(incomingGridMatrix)
 {
 
@@ -11,23 +11,26 @@ EntityManager::EntityManager(QObject *parent, GridMatrix *incomingGridMatrix) :
 
 bool EntityManager::registerEntity(GridEntity *entity)
 {
-    qDebug() << "registerEntity";
-    target = entity;
+    targetEntity = entity;
 }
 
 void EntityManager::updateEntities()
 {
-    target->followPath(1);
+    targetEntity->followPath(1);
 }
 
-void EntityManager::findPath(QPoint source, QPoint target)
+bool EntityManager::findPath(QPoint target)
+{
+    findPath(targetEntity->getGridPos(), target);
+}
+
+bool EntityManager::findPath(QPoint source, QPoint target)
 {
     if (gridMatrix == nullptr) {
         qDebug() << "EntityManager::findPath" << "Found nullptr";
-        return;
+        return false;
     }
 
-    // FOR TESTING
     // FOR TESTING
     QVector<QVector<GridSquareData *>> grid;
     for(int i = 0; i < 10; i++) // Initialize starting with row by row
@@ -49,7 +52,6 @@ void EntityManager::findPath(QPoint source, QPoint target)
     }
     gridMatrix->setMatrix(grid);
 
-    PathFinder::getInstance()->findPath(gridMatrix, QPoint(0,0), target);
-//    qDebug() << "EntityManager::findPath(" << targetX << "," << targetY << ")";
-//    target->findPath(gameBoard->getGameBoard(), targetX, targetY);
+    targetEntity->setPath(PathFinder::getInstance()->findPath(gridMatrix, source, target));
+    return targetEntity->pathHasSteps();
 }

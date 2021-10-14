@@ -19,6 +19,15 @@ Window {
         gameBoard.createRandomizedGameBoard(gameGrid.columns, gameGrid.rows);
     }
 
+    MouseArea {
+        anchors.fill: parent
+
+        onClicked: {
+            entityManager.findPath(Qt.point((mouseX / 100) - 1, (mouseY / 100) - 1));
+            movementTimer.restart();
+        }
+    }
+
     GameGrid {
         id: gameGrid
         columns: 10
@@ -38,18 +47,33 @@ Window {
         height: 50
         color: "blue"
 
-        x: (gridEntity.gridX * 100) + 25
-        y: (gridEntity.gridY * 100) + 25
+        x: (gridEntity.gridPos.x * 100) + 25
+        y: (gridEntity.gridPos.y * 100) + 25
+
+        onGridXChanged: {
+            console.log("Grid X changed");
+        }
 
         Component.onCompleted: {
             entityManager.registerEntity(gridEntity);
-            entityManager.findPath(Qt.point(0,0), Qt.point(8, 6));
+            entityManager.findPath(Qt.point(8, 6));
+            movementTimer.start();
         }
         focus: true
 
         Keys.onSpacePressed: {
-//            entityManager.updateEntities();
-//            gridEntity.followPath(1);
+            gridEntity.followPath(1);
+        }
+    }
+
+    Timer {
+        id: movementTimer
+        repeat: true
+        interval: 500
+        triggeredOnStart: true
+
+        onTriggered: {
+            entity.gridEntity.followPath(1);
         }
     }
 
