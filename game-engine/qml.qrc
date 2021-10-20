@@ -22,5 +22,9 @@
         <file>images/stars/Space_Stars8.png</file>
         <file>images/stars/cartoon-star.png</file>
         <file>images/stone-single.png</file>
+        <file>images/Little Alchemist Lab BugsSpriteSheet.png</file>
+        <file>gridGame/AnimatedGridEntity.qml</file>
+        <file>gridGame/bugEntities/YellowBugEntity.qml</file>
+        <file>images/dirt.png</file>
     </qresource>
 </RCC>

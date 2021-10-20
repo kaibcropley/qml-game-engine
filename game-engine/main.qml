@@ -32,18 +32,18 @@ Window {
         }
     }
 
-    GridBasedEntity {
+    AnimatedGridEntity {
         id: entity
         width: 50
         height: 50
-        color: "blue"
+        color: "transparent"
 
         x: (gridEntity.gridX * 100) + 25
         y: (gridEntity.gridY * 100) + 25
 
         Component.onCompleted: {
             entityManager.registerEntity(gridEntity);
-            entityManager.findPath(8, 2);
+//            entityManager.findPath(8, 2);
         }
         focus: true
 
@@ -51,6 +51,40 @@ Window {
 //            entityManager.updateEntities();
 //            gridEntity.followPath(1);
         }
+
+        spriteSource: "/images/Little Alchemist Lab BugsSpriteSheet.png"
+        spriteFrameWidth: 32
+        spriteFrameHeight: 30
+        spriteFrameCount: 3
+        spriteFrameDuration: 800
+    }
+
+    AnimatedGridEntity {
+        id: entity2
+        width: 50
+        height: 50
+        color: "transparent"
+
+        x: (2 * 100) + 25
+        y: (2 * 100) + 25
+
+        Component.onCompleted: {
+//            entityManager.registerEntity(gridEntity);
+//            entityManager.findPath(8, 2);
+        }
+        focus: true
+
+        Keys.onSpacePressed: {
+//            entityManager.updateEntities();
+//            gridEntity.followPath(1);
+        }
+
+        spriteSource: "/images/Little Alchemist Lab BugsSpriteSheet.png"
+        spriteFrameWidth: 32
+        spriteFrameHeight: 30
+        spriteFrameCount: 8
+        spriteFrameDuration: 200
+        spriteFrameX: spriteFrameWidth * 4
     }
 
 

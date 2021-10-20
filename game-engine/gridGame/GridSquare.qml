@@ -24,16 +24,16 @@ GridSquareData {
 
         Image {
             anchors.fill: parent
-            source: "../images/stars/Space_Stars8.png"
+            source: "../images/dirt.png" // "../images/stars/Space_Stars8.png"
         }
 
-        Image {
-            visible: modelData.containsFood
-            anchors.centerIn: parent
-            width: parent.width / 4
-            height: width
-            source: "../images/stars/cartoon-star.png"
-        }
+//        Image {
+//            visible: modelData.containsFood
+//            anchors.centerIn: parent
+//            width: parent.width / 4
+//            height: width
+//            source: "../images/stars/cartoon-star.png"
+//        }
 
         Image {
             visible: modelData.blocked
