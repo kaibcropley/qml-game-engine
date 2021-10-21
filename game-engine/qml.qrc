@@ -22,5 +22,30 @@
         <file>images/stars/Space_Stars8.png</file>
         <file>images/stars/cartoon-star.png</file>
         <file>images/stone-single.png</file>
+        <file>images/groundPack/dirt1.png</file>
+        <file>images/groundPack/dirt2.png</file>
+        <file>images/groundPack/dirt3.png</file>
+        <file>images/groundPack/dirt4.png</file>
+        <file>images/groundPack/grass1.png</file>
+        <file>images/groundPack/grass10.png</file>
+        <file>images/groundPack/grass2.png</file>
+        <file>images/groundPack/grass3.png</file>
+        <file>images/groundPack/grass4.png</file>
+        <file>images/groundPack/grass5.png</file>
+        <file>images/groundPack/grass6.png</file>
+        <file>images/groundPack/grass7.png</file>
+        <file>images/groundPack/grass8.png</file>
+        <file>images/groundPack/grass9.png</file>
+        <file>images/groundPack/stair_stone1.png</file>
+        <file>images/groundPack/stone1.png</file>
+        <file>images/groundPack/stone2.png</file>
+        <file>images/groundPack/stone3.png</file>
+        <file>images/groundPack/stone4.png</file>
+        <file>images/Grass 002.png</file>
+        <file>images/Grass 001.png</file>
+        <file>images/Plants 001.png</file>
+        <file>images/Plants 002.png</file>
+        <file>images/berry-bush.png</file>
+        <file>images/PacMan.png</file>
     </qresource>
 </RCC>

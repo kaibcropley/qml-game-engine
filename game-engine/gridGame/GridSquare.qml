@@ -1,16 +1,12 @@
 import QtQuick 2.0
 import kcropley.grid 1.0
 
-GridSquareData {
+Item {
     id: gridSquare
 
     property alias background: ground
 
-
-
-    Component.onCompleted: {
-//        console.log(JSON.stringify(modelData))
-    }
+    property bool debug: false
 
     Rectangle {
         id: ground
@@ -20,19 +16,32 @@ GridSquareData {
 
         anchors.fill: parent
 
-        state: modelData.squareType === 0 ? "dirt" : "grass"
+//        state: modelData.squareType === 0 ? "dirt" : "grass"
 
         Image {
             anchors.fill: parent
-            source: "../images/stars/Space_Stars8.png"
+            source: "../images/Grass 00" + (modelData.squareType + 1) + ".png"
+        }
+
+        Text {
+            visible: debug
+            anchors {
+                top: parent.top
+                right: parent.right
+                margins: 5
+            }
+
+            text: modelData.gridPos.toString()
         }
 
         Image {
             visible: modelData.containsFood
             anchors.centerIn: parent
-            width: parent.width / 4
-            height: width
-            source: "../images/stars/cartoon-star.png"
+            width: parent.width / 2
+            height: parent.height / 3
+            scale: Qt.KeepAspectRatio
+            fillMode: Image.PreserveAspectFit
+            source: "../images/berry-bush.png"
         }
 
         Image {

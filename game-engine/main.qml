@@ -11,19 +11,20 @@ Window {
     visible: true
     width: 1000
     height: 1000
-    title: qsTr("Hello World")
+    title: qsTr("QML Game Engine")
 
     property bool collisionsRunning: true
 
     Component.onCompleted: {
-        gameBoard.createRandomizedGameBoard(gameGrid.columns, gameGrid.rows);
+//        gameBoard.createRandomizedGameBoard(gameGrid.columns, gameGrid.rows);
     }
 
     MouseArea {
         anchors.fill: parent
 
         onClicked: {
-            entityManager.findPath(Qt.point((mouseX / 100) - 1, (mouseY / 100) - 1));
+            console.log("Finding a path to", Qt.point(Math.ceil(mouseX / 100) - 1, Math.ceil(mouseY / 100) - 1));
+            entityManager.findPath(Qt.point(Math.ceil(mouseX / 100) - 1, Math.ceil(mouseY / 100) - 1));
             movementTimer.restart();
         }
     }
@@ -37,7 +38,7 @@ Window {
         }
 
         Component.onCompleted: {
-            model = gameBoard.gameBoardToOneDimension();
+            model = gridMatrix.matrixToOneDimension();
         }
     }
 
@@ -45,14 +46,9 @@ Window {
         id: entity
         width: 50
         height: 50
-        color: "blue"
 
         x: (gridEntity.gridPos.x * 100) + 25
         y: (gridEntity.gridPos.y * 100) + 25
-
-        onGridXChanged: {
-            console.log("Grid X changed");
-        }
 
         Component.onCompleted: {
             entityManager.registerEntity(gridEntity);
@@ -64,6 +60,12 @@ Window {
         Keys.onSpacePressed: {
             gridEntity.followPath(1);
         }
+
+        Image {
+            width: parent.width
+            height: parent.height
+            source: "/images/PacMan.png"
+        }
     }
 
     Timer {
@@ -73,7 +75,9 @@ Window {
         triggeredOnStart: true
 
         onTriggered: {
-            entity.gridEntity.followPath(1);
+            if (entity.gridEntity.pathHasSteps()) {
+                entity.gridEntity.followPath(1);
+            }
         }
     }
 

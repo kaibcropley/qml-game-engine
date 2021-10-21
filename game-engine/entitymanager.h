@@ -2,6 +2,7 @@
 #define ENTITYMANAGER_H
 
 #include <QObject>
+#include <QQmlListProperty>
 #include "gridentity.h"
 #include "gridmatrix.h"
 

@@ -57,7 +57,7 @@ void GameBoard::createRandomizedGameBoard(int height, int width)
         {
             GridSquareData *newSquare = new GridSquareData();
             newSquare->setSquareType(static_cast<GridSquareData::BoardSquareType>(getRandomInt() % 2));
-            newSquare->setBlocked(false); // (getRandomInt() % 8) == 1);
+            newSquare->setBlocked((getRandomInt() % 8) == 1);
             if (!newSquare->getBlocked()) {
                 newSquare->setContainsFood((getRandomInt() % 5) == 1);
             } else {

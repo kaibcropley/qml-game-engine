@@ -3,7 +3,7 @@ import kcropley.grid 1.0
 import "qrc:/"
 import "qrc:/colliders/"
 
-CircleCollider {
+Item {
     id: entity
 
     GridEntity {

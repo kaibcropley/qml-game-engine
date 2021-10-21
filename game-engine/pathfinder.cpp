@@ -72,6 +72,11 @@ QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoi
             if (lowest->f > untestedNodes.at(i)->f) {
                 lowest = untestedNodes.at(i);
                 lowestIndex = i;
+            } else if (lowest->f == untestedNodes.at(i)->f) {
+                if (untestedNodes.at(i)->loc.y() == target.y() || untestedNodes.at(i)->loc.x() == target.x()) {
+                    lowest = untestedNodes.at(i);
+                    lowestIndex = i;
+                }
             }
         }
         currentNode = lowest;
@@ -108,6 +113,9 @@ bool PathFinder::isMoveValid(GridMatrix *gridMatrix, QPoint point)
 {
     // If in bounds, can then check square
     if (point.x() >= 0 && point.x() < gridMatrix->rows() && point.y() >= 0 && point.y() < gridMatrix->columns()) {
+        if (gridMatrix->at(point)->getBlocked()) {
+            qDebug() << "Patherfinder" << point << " blocked";
+        }
         return !gridMatrix->at(point)->getBlocked();
     }
     return false;

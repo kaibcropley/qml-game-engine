@@ -26,12 +26,13 @@ int main(int argc, char *argv[])
     CollisionManager collisionManager;
     GameBoard gameBoard;
 
-    GridMatrix matrix;
-    EntityManager entityManager(0, &matrix);
+    GridMatrix gridMatrix;
+    EntityManager entityManager(0, &gridMatrix);
 //    engine.rootContext()->setContextProperty("gridEntityFactory", &gridEntityFactory);
     engine.rootContext()->setContextProperty("collisionManager", &collisionManager);
     engine.rootContext()->setContextProperty("gameBoard", &gameBoard);
     engine.rootContext()->setContextProperty("entityManager", &entityManager);
+    engine.rootContext()->setContextProperty("gridMatrix", &gridMatrix);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
