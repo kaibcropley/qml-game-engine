@@ -3,14 +3,14 @@ import kcropley.grid 1.0
 import "qrc:/"
 import "qrc:/colliders/"
 
-CircleCollider {
+GridEntity {
     id: entity
 
-    GridEntity {
-        id: gridEntityObj
-    }
+//    GridEntity {
+//        id: gridEntityObj
+//    }
 
-    property alias gridEntity: gridEntityObj
+//    property alias gridEntity: gridEntityObj
 
     // Change in x or y for each movement
     property int dx: 100

@@ -8,6 +8,7 @@
 class GridEntity : public QQuickItem
 {
     Q_OBJECT
+    Q_PROPERTY(QString name READ getName WRITE setName NOTIFY onNameChanged)
     Q_PROPERTY(int gridX READ getGridX WRITE setGridX NOTIFY onGridXChanged)
     Q_PROPERTY(int gridY READ getGridY WRITE setGridY NOTIFY onGridYChanged)
 public:
@@ -30,6 +31,10 @@ public:
 
     // Operators
     GridEntity operator=(const GridEntity&);
+
+    //
+    void setName(QString name);
+    QString getName();
 
     // Grid X and Y getter and setters
     void setGridX(int newX);
@@ -63,11 +68,15 @@ signals:
     void onGridXChanged(int newX);
     void onGridYChanged(int newY);
 
+    void onNameChanged(QString newName);
+
 public slots:
 
 private:
     int m_gridX;
     int m_gridY;
+
+    QString m_name;
 
     QVector<MovementDirections> m_path;
 };

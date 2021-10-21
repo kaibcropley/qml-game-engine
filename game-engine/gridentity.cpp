@@ -16,6 +16,7 @@ GridEntity::GridEntity(QQuickItem *parent, int startX, int startY) :
 GridEntity::GridEntity(const GridEntity &other) :
     QQuickItem(0)
 {
+    this->m_name = other.m_name;
     this->m_gridX = other.m_gridX;
     this->m_gridY = other.m_gridY;
 }
@@ -23,9 +24,23 @@ GridEntity::GridEntity(const GridEntity &other) :
 GridEntity GridEntity::operator=(const GridEntity& other)
 {
 
+    this->m_name = other.m_name;
     this->m_gridX = other.m_gridX;
     this->m_gridY = other.m_gridY;
     return *this;
+}
+
+void GridEntity::setName(QString name)
+{
+    if (m_name != name) {
+        m_name = name;
+        emit onNameChanged(m_name);
+    }
+}
+
+QString GridEntity::getName()
+{
+    return m_name;
 }
 
 int GridEntity::getGridX()

@@ -9,6 +9,7 @@
 #include "gridentity.h"
 #include "gridentityfactory.h"
 #include "entitymanager.h"
+#include "movementenums.h"
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +20,7 @@ int main(int argc, char *argv[])
     // Register C++ items in QML
     qmlRegisterType<GridSquareData>("kcropley.grid", 1, 0, "GridSquareData");
     qmlRegisterType<GridEntity>("kcropley.grid", 1, 0, "GridEntity");
+    qmlRegisterType<MovementEnums>("movement.enums", 1, 0, "MovementEnums");
 
     // Set C++ context in QML
 //    GridEntityFactory gridEntityFactory;

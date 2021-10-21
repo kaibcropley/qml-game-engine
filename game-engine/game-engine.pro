@@ -9,7 +9,9 @@ SOURCES += main.cpp \
     gridentity.cpp \
     gridsquaredata.cpp \
     gridentityfactory.cpp \
-    entitymanager.cpp
+    entitymanager.cpp \
+    movementenums.cpp \
+    bugai.cpp
 
 RESOURCES += qml.qrc
 
@@ -27,4 +29,6 @@ HEADERS += \
     gridentity.h \
     gridsquaredata.h \
     gridentityfactory.h \
-    entitymanager.h
+    entitymanager.h \
+    movementenums.h \
+    bugai.h

@@ -2,29 +2,35 @@
 
 EntityManager::EntityManager(QObject *parent, GameBoard *incomingGameBoard) :
     QObject(parent),
-    target(nullptr),
+//    target(nullptr),
     gameBoard(incomingGameBoard)
 {
 
 }
 
-bool EntityManager::registerEntity(GridEntity *entity)
+void EntityManager::registerEntity(GridEntity *entity)
 {
-    qDebug() << "registerEntity";
-    target = entity;
+    qDebug() << "registerEntity" << entity->getName();
+    m_entities.append(entity);
 }
 
 void EntityManager::updateEntities()
 {
-    target->followPath(1);
+    QVectorIterator<GridEntity *> entitiesItr(m_entities);
+    while (entitiesItr.hasNext()) {
+        qDebug() << entitiesItr.next();
+    }
 }
 
 void EntityManager::findPath(int targetX, int targetY)
 {
-    if (target == nullptr || gameBoard == nullptr) {
+    if (m_entities.size() == 0 || gameBoard == nullptr) {
         qDebug() << "EntityManager::findPath" << "Found nullptr";
         return;
     }
-//    qDebug() << "EntityManager::findPath(" << targetX << "," << targetY << ")";
-    target->findPath(gameBoard->getGameBoard(), targetX, targetY);
+
+    QVectorIterator<GridEntity *> entitiesItr(m_entities);
+    while (entitiesItr.hasNext()) {
+        qDebug() << entitiesItr.next();
+    }
 }

@@ -3,6 +3,8 @@ import QtQuick 2.0
 Rectangle {
     id: rectCollider
 
+    color: "transparent"
+
     property bool colliderRectangle: true
 
     function getAsQRect() {
