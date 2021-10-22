@@ -2,6 +2,7 @@
 #define MOVEMENTENUMS_H
 
 #include <QObject>
+#include <QPoint>
 
 class MovementEnums : public QObject
 {
@@ -20,6 +21,8 @@ public:
     Q_ENUM(Directions)
 
     explicit MovementEnums(QObject *parent = 0);
+
+    static MovementEnums::Directions getDirection(QPoint source, QPoint target);
 
 signals:
 

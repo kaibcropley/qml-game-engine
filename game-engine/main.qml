@@ -26,13 +26,15 @@ Window {
         onClicked: {
             var p = Qt.point(Math.ceil(mouseX / 100) - 1, Math.ceil(mouseY / 100) - 1);
             var currSquare = gameGrid.getSquare(p);
-            currSquare.containsFood = true;
+            if (!currSquare.blocked) {
+                currSquare.containsFood = true;
+            }
         }
     }
 
     Timer {
         id: movementTimer
-        interval: 400
+        interval: 750 //400
         triggeredOnStart: true
         repeat: true
 
@@ -103,6 +105,7 @@ Window {
 
         bugType: 12
         maxDuration: movementTimer.interval
+        rotation: lastDirection;
 
         Component.onCompleted: {
             entityManager.registerEntity(entity);
@@ -123,6 +126,8 @@ Window {
 
         bugType: 1
         maxDuration: movementTimer.interval
+
+        rotation: lastDirection;
 
         gridPos: Qt.point(4, 9)
 

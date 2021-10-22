@@ -18,8 +18,8 @@ GridEntity {
     property int xWidth: 100
     property int yHeight: 100
 
-    x: (gridPos.x * xWidth) + 25
-    y: (gridPos.y * yHeight) + 25
+    x: (gridPos.x * xWidth) + ((100 - width) / 2) // + 25
+    y: (gridPos.y * yHeight)  + ((100 - height) / 2) //+ 25
 
     // Speed
     property int velocity: 200

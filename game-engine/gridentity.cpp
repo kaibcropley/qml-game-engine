@@ -5,7 +5,8 @@
 
 GridEntity::GridEntity(QQuickItem *parent) :
     QQuickItem(parent),
-    m_gridPos(QPoint(0, 0))
+    m_gridPos(QPoint(0, 0)),
+    m_lastDirection(MovementEnums::North)
 {
 }
 
@@ -48,6 +49,17 @@ void GridEntity::setGridMatrix(GridMatrix *newGridMatrix)
     emit onGridMatrixChanged(p_gridMatrix);
 }
 
+MovementEnums::Directions GridEntity::getLastDirection()
+{
+    return m_lastDirection;
+}
+
+void GridEntity::setLastDirection(MovementEnums::Directions newDirection)
+{
+    m_lastDirection = newDirection;
+    emit onLastDirectionChanged(m_lastDirection);
+}
+
 void GridEntity::setPath(QVector<QPoint> path)
 {
     m_Path = path;
@@ -55,6 +67,7 @@ void GridEntity::setPath(QVector<QPoint> path)
 
 void GridEntity::moveTo(QPoint target)
 {
+    setLastDirection(MovementEnums::getDirection(m_gridPos, target));
     setGridPos(target);
 }
 
