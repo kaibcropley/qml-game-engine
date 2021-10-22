@@ -4,6 +4,7 @@
 //#include <QObject>
 #include <QPoint>
 #include "gridmatrix.h"
+#include "movementenums.h"
 
 class PathFinder // : public QObject
 {
@@ -71,17 +72,6 @@ private:
         /* Private constructor to prevent instancing. */
 public:
     static PathFinder *getInstance();
-    enum MovementDirections {
-        GRID_W,
-        GRID_E,
-        GRID_N,
-        GRID_S,
-        GRID_NE,
-        GRID_NW,
-        GRID_SE,
-        GRID_SW
-    };
-//    Q_ENUM(MovementDirections)
 
     QVector<QPoint> findPath(GridMatrix *gameBoard, QPoint source, QPoint target);
     QVector<QPoint> dijkstra(GridMatrix *gameBoard, QPoint source, QPoint target);
@@ -89,7 +79,7 @@ public:
     // Path finding helpers
     bool isMoveValid(GridMatrix *gameBoard, QPoint point);
     int calculateManhattanDistance(QPoint p1, QPoint p2);
-    QPoint movePointDirection(MovementDirections direction, QPoint point, int changeLength = 1);
+    QPoint movePointDirection(MovementEnums::Directions direction, QPoint point, int changeLength = 1);
 
     // By using this we significantly increase search times by not having to initialize a node to check if the vector contains it
     bool nodeVectorContainsPoint(QVector<Node *> vec, QPoint point);

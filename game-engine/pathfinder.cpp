@@ -50,7 +50,10 @@ QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoi
 
     Node *currentNode = startNode;
 
-    QVector<MovementDirections> movementOptions = {GRID_N, GRID_S, GRID_W, GRID_E, GRID_NW, GRID_NE, GRID_SW, GRID_SE};
+    QVector<MovementEnums::Directions> movementOptions = {
+        MovementEnums::North, MovementEnums::South, MovementEnums::West, MovementEnums::East,
+        MovementEnums::NorthWest, MovementEnums::NorthEast, MovementEnums::SouthWest, MovementEnums::SouthEast
+    };
 
     while (untestedNodes.size() > 0)
     {
@@ -81,7 +84,7 @@ QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoi
         testedNodes.append(lowest);
         untestedNodes.remove(lowestIndex);
 
-        QVectorIterator<MovementDirections> pathSteps(movementOptions);
+        QVectorIterator<MovementEnums::Directions> pathSteps(movementOptions);
         while (pathSteps.hasNext()) {
             QPoint currPoint = movePointDirection(pathSteps.next(), currentNode->loc);
             if (isMoveValid(gridMatrix, currPoint)) {
@@ -116,23 +119,23 @@ bool PathFinder::isMoveValid(GridMatrix *gridMatrix, QPoint point)
 }
 
 
-QPoint PathFinder::movePointDirection(MovementDirections direction, QPoint point, int changeLength)
+QPoint PathFinder::movePointDirection(MovementEnums::Directions direction, QPoint point, int changeLength)
 {
-    if (direction == MovementDirections::GRID_W) {
+    if (direction == MovementEnums::West) {
         return QPoint(point.x() - changeLength, point.y());
-    } else if (direction == MovementDirections::GRID_E) {
+    } else if (direction == MovementEnums::East) {
         return QPoint(point.x() + changeLength, point.y());
-    } else if (direction == MovementDirections::GRID_N) {
+    } else if (direction == MovementEnums::North) {
         return QPoint(point.x(), point.y() - changeLength);
-    } else if (direction == MovementDirections::GRID_S) {
+    } else if (direction == MovementEnums::South) {
         return QPoint(point.x(), point.y() + changeLength);
-    } else if (direction == MovementDirections::GRID_NW) {
+    } else if (direction == MovementEnums::NorthWest) {
         return QPoint(point.x() - changeLength, point.y() - changeLength);
-    } else if (direction == MovementDirections::GRID_SW) {
+    } else if (direction == MovementEnums::SouthWest) {
         return QPoint(point.x() - changeLength, point.y() + changeLength);
-    } else if (direction == MovementDirections::GRID_NE) {
+    } else if (direction == MovementEnums::NorthEast) {
         return QPoint(point.x() + changeLength, point.y() - changeLength);
-    } else if (direction == MovementDirections::GRID_SE) {
+    } else if (direction == MovementEnums::SouthEast) {
         return QPoint(point.x() + changeLength, point.y() + changeLength);
     }
     throw "Unknown movement direction";

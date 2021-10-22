@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     entitymanager.cpp \
     gridmatrix.cpp \
     pathfinder.cpp \
-    gridmatrixfactory.cpp
+    gridmatrixfactory.cpp \
+    movementenums.cpp
 
 RESOURCES += qml.qrc
 
@@ -31,4 +32,5 @@ HEADERS += \
     entitymanager.h \
     gridmatrix.h \
     pathfinder.h \
-    gridmatrixfactory.h
+    gridmatrixfactory.h \
+    movementenums.h
