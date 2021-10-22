@@ -21,17 +21,17 @@ PathFinder* PathFinder::getInstance()
 
 QVector<QPoint> PathFinder::findPath(GridMatrix *gridMatrix, QPoint source, QPoint target)
 {
-    if (gridMatrix->rows() < 1 || gridMatrix->columns() < 1) {
-        qDebug() << "PathFinder::findPath: Invalid grid matrix";
+    if (gridMatrix == nullptr || gridMatrix->rows() < 1 || gridMatrix->columns() < 1) {
+//        qDebug() << "PathFinder::findPath: Invalid grid matrix";
         return QVector<QPoint>();
     }
 
     if (source == target) {
-        qDebug() << "PathFinder::findPath: QPoint source == QPoint target";
+//        qDebug() << "PathFinder::findPath: QPoint source == QPoint target";
         return QVector<QPoint>();
     }
 
-    qDebug() << "PathFinder::findPath( matrix," << source << "," << target << ")";
+//    qDebug() << "PathFinder::findPath( matrix," << source << "," << target << ")";
     return dijkstra(gridMatrix, source, target);
 }
 
@@ -55,14 +55,12 @@ QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoi
     while (untestedNodes.size() > 0)
     {
         if (currentNode->loc == target) {
-            qDebug() << "Success!!!";
             QVector<QPoint> path;
             while(currentNode->parent != nullptr) {
                 path.append(currentNode->loc);
                 currentNode = currentNode->parent;
             }
             std::reverse(path.begin(), path.end());
-            qDebug() << path;
             return path;
         }
 
@@ -83,7 +81,6 @@ QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoi
         testedNodes.append(lowest);
         untestedNodes.remove(lowestIndex);
 
-
         QVectorIterator<MovementDirections> pathSteps(movementOptions);
         while (pathSteps.hasNext()) {
             QPoint currPoint = movePointDirection(pathSteps.next(), currentNode->loc);
@@ -96,7 +93,7 @@ QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoi
         }
     }
 
-    qDebug() << "Tested every location, no path found";
+    qDebug() << "Tested every location, no path found between points " << source << "and" << target;
     return QVector<QPoint>();
 }
 
@@ -113,10 +110,7 @@ bool PathFinder::isMoveValid(GridMatrix *gridMatrix, QPoint point)
 {
     // If in bounds, can then check square
     if (point.x() >= 0 && point.x() < gridMatrix->rows() && point.y() >= 0 && point.y() < gridMatrix->columns()) {
-        if (gridMatrix->at(point)->getBlocked()) {
-            qDebug() << "Patherfinder" << point << " blocked";
-        }
-        return !gridMatrix->at(point)->getBlocked();
+        return !gridMatrix->at(point)->getMovementAllowed();
     }
     return false;
 }

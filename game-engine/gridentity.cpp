@@ -1,16 +1,9 @@
 ﻿#include "gridentity.h"
 #include <QtMath>
 #include <QLinkedList>
+#include "pathfinder.h"
 
-// TODO REMOVE AFTER TEST CODE REMOVED
-
-
-//GridEntity::GridEntity(QObject *parent) : QObject(parent)
-//{
-
-//}
-
-GridEntity::GridEntity(QQuickItem *parent, int startX, int startY) :
+GridEntity::GridEntity(QQuickItem *parent) :
     QQuickItem(parent),
     m_gridPos(QPoint(0, 0))
 {
@@ -20,12 +13,14 @@ GridEntity::GridEntity(const GridEntity &other) :
     QQuickItem(0)
 {
     this->m_gridPos = other.m_gridPos;
+    this->p_gridMatrix = other.p_gridMatrix;
 }
 
 GridEntity GridEntity::operator=(const GridEntity& other)
 {
 
     this->m_gridPos = other.m_gridPos;
+    this->p_gridMatrix = other.p_gridMatrix;
     return *this;
 }
 
@@ -42,30 +37,15 @@ void GridEntity::setGridPos(QPoint pos)
     }
 }
 
-int GridEntity::getGridX()
+GridMatrix * GridEntity::getGridMatrix()
 {
-    return m_gridPos.x();
+    return p_gridMatrix;
 }
 
-void GridEntity::setGridX(int newX)
+void GridEntity::setGridMatrix(GridMatrix *newGridMatrix)
 {
-    if (m_gridPos.x() != newX) {
-        m_gridPos.setX(newX);
-        emit onGridXChanged(newX);
-    }
-}
-
-int GridEntity::getGridY()
-{
-    return m_gridPos.y();
-}
-
-void GridEntity::setGridY(int newY)
-{
-    if (m_gridPos.y() != newY) {
-        m_gridPos.setY(newY);
-        emit onGridYChanged(newY);
-    }
+    p_gridMatrix = newGridMatrix;
+    emit onGridMatrixChanged(p_gridMatrix);
 }
 
 void GridEntity::setPath(QVector<QPoint> path)
@@ -73,8 +53,7 @@ void GridEntity::setPath(QVector<QPoint> path)
     m_Path = path;
 }
 
-// TODO remove return or give it a use
-bool GridEntity::moveTo(QPoint target)
+void GridEntity::moveTo(QPoint target)
 {
     setGridPos(target);
 }
@@ -86,13 +65,20 @@ bool GridEntity::pathHasSteps()
 
 void GridEntity::findPath(QPoint target)
 {
-    qDebug() << "TODO";
+    setPath(PathFinder::getInstance()->findPath(p_gridMatrix, getGridPos(), target));
 }
 
 void GridEntity::followPath(int maxSteps)
 {
-    qDebug() << "GridEntity::followPath(" << maxSteps << ") Path length:" << m_Path.size();
-    followPath(m_Path, maxSteps);
+//    qDebug() << "GridEntity::followPath(" << maxSteps << ") Path length:" << m_Path.size();
+    if (pathHasSteps()) {
+        if (maxSteps > 1) {
+            followPath(m_Path, maxSteps);
+        } else { // If just 1 step, do here for performance
+            moveTo(m_Path.at(0));
+            m_Path.removeFirst();
+        }
+    }
 }
 
 void GridEntity::followPath(QVector<QPoint> &path, int maxSteps)
@@ -106,22 +92,4 @@ void GridEntity::followPath(QVector<QPoint> &path, int maxSteps)
     }
 }
 
-//bool GridEntity::step(MovementDirections direction)
-//{
-//    int newX = getGridX();
-//    int newY = getGridY();
 
-//    if (direction == MovementDirections::GRID_W || direction == MovementDirections::GRID_NW || direction == MovementDirections::GRID_SW) {
-//        newX = newX - 1;
-//    } else if (direction == MovementDirections::GRID_E || direction == MovementDirections::GRID_NE || direction == MovementDirections::GRID_SE) {
-//        newX = newX + 1;
-//    }
-
-//    if (direction == MovementDirections::GRID_N || direction == MovementDirections::GRID_NE || direction == MovementDirections::GRID_NW) {
-//        newY = newY - 1;
-//    } else if (direction == MovementDirections::GRID_S || direction == MovementDirections::GRID_SE || direction == MovementDirections::GRID_SW) {
-//        newY = newY + 1;
-//    }
-
-//    return moveTo(newX, newY);
-//}

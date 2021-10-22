@@ -49,5 +49,7 @@
         <file>images/PacMan.png</file>
         <file>images/dirt.png</file>
         <file>gridGame/AnimatedGridEntity.qml</file>
+        <file>gridGame/BugEntity.qml</file>
+        <file>images/Little Alchemist Lab BugsSpriteSheet.png</file>
     </qresource>
 </RCC>

@@ -7,6 +7,7 @@ GridMatrixFactory::GridMatrixFactory()
 
 GridMatrix* GridMatrixFactory::createRandomMatrix(int rows, int columns)
 {
+    qDebug() << "GridMatrixFactory::createRandomMatrix(" << rows << "," << columns << ")";
     GridMatrix *gridMatrix = new GridMatrix();
     if (gridMatrix->rows() == 0) {
 
@@ -19,11 +20,12 @@ GridMatrix* GridMatrixFactory::createRandomMatrix(int rows, int columns)
             {
                 GridSquareData *newSquare = new GridSquareData(0, QPoint(i, x));
 //                newSquare->setSquareType(static_cast<GridSquareData::BoardSquareType>((getRandomInt() % 2)));
-                newSquare->setBlocked((getRandomInt() % 5) == 1);
-                if (!newSquare->getBlocked()) {
+                if (x != 0 && x != columns && i != 0 && i != rows) {
+                    newSquare->setMovementAllowed((getRandomInt() % 5) == 1);
+                }
+                if (!newSquare->getMovementAllowed()) {
                     newSquare->setContainsFood((getRandomInt() % 5) == 1);
                 } else {
-                    qDebug() << QPoint(i, x) << "is blocked";
                     newSquare->setContainsFood(false);
                 }
                 currRow.append(newSquare);
@@ -37,6 +39,5 @@ GridMatrix* GridMatrixFactory::createRandomMatrix(int rows, int columns)
 
 int GridMatrixFactory::getRandomInt()
 {
-    srand (time(NULL));
     return rand();
 }

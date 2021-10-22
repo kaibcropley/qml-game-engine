@@ -13,30 +13,22 @@ GridEntity {
 //    property alias gridEntity: gridEntity
 
     // Position within grid
-//    property alias gridX: gridEntity.gridX
-//    property alias gridY: gridEntity.gridY
 
     // Change in x or y for each movement
-    property int dx: 100
-    property int dy: 100
+    property int xWidth: 100
+    property int yHeight: 100
+
+    x: (gridPos.x * xWidth) + 25
+    y: (gridPos.y * yHeight) + 25
 
     // Speed
     property int velocity: 200
+    property int maxDuration: 300
 
     // Movement configs
     property bool movementEnabled: true
-    property alias movementDelay: movementDelayTimer.interval
+//    property alias movementDelay: movementDelayTimer.interval
     property bool teleport: false // Disables smoothed movement and teleports player
-
-    // Enable/Disable movement on axis Note is overwritten by directional enablers
-    property bool horizontalMovementEnabled: movementEnabled
-    property bool verticalMovementEnabled: movementEnabled
-
-    // Enable/Disable movement on direction
-    property bool leftMovementEnabled: horizontalMovementEnabled
-    property bool rightMovementEnabled: horizontalMovementEnabled
-    property bool upMovementEnabled: verticalMovementEnabled
-    property bool downMovementEnabled: verticalMovementEnabled
 
     // Movement signals
     signal movementStarted()
@@ -49,6 +41,7 @@ GridEntity {
         SmoothedAnimation {
             id: xAnimation
             velocity: entity.velocity;
+            duration: entity.maxDuration
             onRunningChanged: {
                 if (running) {
                     movementStarted();
@@ -66,6 +59,7 @@ GridEntity {
         SmoothedAnimation {
             id: yAnimation
             velocity: entity.velocity
+            duration: entity.maxDuration
             onRunningChanged: {
                 if (running) {
                     movementStarted();
@@ -73,55 +67,6 @@ GridEntity {
                     movementStopped();
                 }
             }
-        }
-    }
-
-    // Forces a delay between movements
-    Timer {
-        id: movementDelayTimer
-        interval: 0 // Set interval default to 0 to ensure it only triggers if the caller sets movementDelay
-
-        onTriggered: {
-            movementEnabled = true;
-        }
-    }
-
-    function moveLeft() {
-        if (leftMovementEnabled && !xAnimation.running) {
-            x -= dx;
-            gridX--;
-            checkMovementDelay();
-        }
-    }
-
-    function moveRight() {
-        if (rightMovementEnabled && !xAnimation.running) {
-            x += dx;
-            gridX++;
-            checkMovementDelay();
-        }
-    }
-
-    function moveUp() {
-        if (upMovementEnabled && !yAnimation.running) {
-            y -= dy;
-            gridY--;
-            checkMovementDelay();
-        }
-    }
-
-    function moveDown() {
-        if (downMovementEnabled && !yAnimation.running) {
-            y += dy;
-            gridY++;
-            checkMovementDelay();
-        }
-    }
-
-    function checkMovementDelay() {
-        if (movementDelay > 0) {
-//            movementEnabled = false;
-            movementDelayTimer.restart();
         }
     }
 }

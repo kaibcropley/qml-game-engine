@@ -11,6 +11,8 @@
 #include "entitymanager.h"
 #include "gridmatrix.h"
 
+#include "gridmatrixfactory.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -26,13 +28,14 @@ int main(int argc, char *argv[])
     CollisionManager collisionManager;
     GameBoard gameBoard;
 
-    GridMatrix gridMatrix;
-    EntityManager entityManager(0, &gridMatrix);
+    GridMatrixFactory factory;
+    GridMatrix *gridMatrix = factory.createRandomMatrix(10, 10);
+    EntityManager entityManager(0, gridMatrix);
 //    engine.rootContext()->setContextProperty("gridEntityFactory", &gridEntityFactory);
     engine.rootContext()->setContextProperty("collisionManager", &collisionManager);
     engine.rootContext()->setContextProperty("gameBoard", &gameBoard);
     engine.rootContext()->setContextProperty("entityManager", &entityManager);
-    engine.rootContext()->setContextProperty("gridMatrix", &gridMatrix);
+    engine.rootContext()->setContextProperty("gridMatrix", gridMatrix);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

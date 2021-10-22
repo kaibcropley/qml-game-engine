@@ -14,8 +14,8 @@ public:
     void setMatrix(QVector<QVector<GridSquareData *>> *newBoard);
     QVector<QVector<GridSquareData *>> getMatrix();
 
-    GridSquareData* at(QPoint p);
-    GridSquareData* at(int x, int y);
+    Q_INVOKABLE GridSquareData* at(QPoint p);
+    Q_INVOKABLE GridSquareData* at(int x, int y);
 
     int rows();
     int columns();

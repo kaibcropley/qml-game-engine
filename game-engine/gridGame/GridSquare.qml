@@ -8,6 +8,9 @@ Item {
 
     property bool debug: false
 
+    property bool containsFood: modelData.containsFood
+    property bool blocked: modelData.blocked
+
     Rectangle {
         id: ground
 
@@ -36,7 +39,7 @@ Item {
         }
 
         Image {
-            visible: modelData.containsFood
+            visible: containsFood //modelData.containsFood
             anchors.centerIn: parent
             width: parent.width / 2
             height: parent.height / 3
@@ -46,7 +49,7 @@ Item {
         }
 
         Image {
-            visible: modelData.blocked
+            visible: blocked
             anchors.centerIn: parent
             width: parent.width / 4
             height: width

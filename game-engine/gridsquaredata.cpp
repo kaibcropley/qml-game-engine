@@ -3,8 +3,8 @@
 GridSquareData::GridSquareData(QQuickItem *parent, QPoint gridPos) :
     QQuickItem(parent),
     m_gridPos(gridPos),
-    m_squareType(DIRT),
-    m_blocked(false),
+    m_squareType(""),
+    m_movementAllowed(false),
     m_containsFood(false)
 {
 }
@@ -13,7 +13,7 @@ GridSquareData::GridSquareData(const GridSquareData &other)
 {
     this->m_gridPos = other.m_gridPos;
     this->m_squareType = other.m_squareType;
-    this->m_blocked = other.m_blocked;
+    this->m_movementAllowed = other.m_movementAllowed;
     this->m_containsFood = other.m_containsFood;
 }
 
@@ -28,7 +28,7 @@ GridSquareData::GridSquareData(const GridSquareData &other)
 GridSquareData GridSquareData::operator=(const GridSquareData& other)
 {
     this->setSquareType(other.getSquareType());
-    this->setBlocked(other.getBlocked());
+    this->setMovementAllowed(other.getMovementAllowed());
     this->setContainsFood(other.getContainsFood());
 
     return *this;
@@ -38,13 +38,13 @@ QVariantMap GridSquareData::toQVariantMap()
 {
     QVariantMap vMap;
     vMap.insert("squareType", getSquareType());
-    vMap.insert("blocked", getBlocked());
+    vMap.insert("blocked", getMovementAllowed());
     vMap.insert("containsFood", getContainsFood());
     vMap.insert("gridPos", getGridPos());
     return vMap;
 }
 
-void GridSquareData::setSquareType(BoardSquareType newType)
+void GridSquareData::setSquareType(QString newType)
 {
     if (m_squareType != newType) {
         m_squareType = newType;
@@ -52,22 +52,22 @@ void GridSquareData::setSquareType(BoardSquareType newType)
     }
 }
 
-GridSquareData::BoardSquareType GridSquareData::getSquareType() const
+QString GridSquareData::getSquareType() const
 {
     return m_squareType;
 }
 
-void GridSquareData::setBlocked(bool blocked)
+void GridSquareData::setMovementAllowed(bool blocked)
 {
-    if (m_blocked != blocked) {
-        m_blocked = blocked;
-        emit onBlockedChanged(m_blocked);
+    if (m_movementAllowed != blocked) {
+        m_movementAllowed = blocked;
+        emit onBlockedChanged(m_movementAllowed);
     }
 }
 
-bool GridSquareData::getBlocked() const
+bool GridSquareData::getMovementAllowed() const
 {
-    return m_blocked;
+    return m_movementAllowed;
 }
 
 void GridSquareData::setContainsFood(bool containsFood)

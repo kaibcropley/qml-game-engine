@@ -56,9 +56,9 @@ void GameBoard::createRandomizedGameBoard(int height, int width)
         for(int x = 0; x < width; x++) // Initialize starting with
         {
             GridSquareData *newSquare = new GridSquareData();
-            newSquare->setSquareType(static_cast<GridSquareData::BoardSquareType>(getRandomInt() % 2));
-            newSquare->setBlocked((getRandomInt() % 8) == 1);
-            if (!newSquare->getBlocked()) {
+            newSquare->setSquareType("dirt");
+            newSquare->setMovementAllowed((getRandomInt() % 8) == 1);
+            if (!newSquare->getMovementAllowed()) {
                 newSquare->setContainsFood((getRandomInt() % 5) == 1);
             } else {
                 newSquare->setContainsFood(false);

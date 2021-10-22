@@ -19,8 +19,12 @@ Grid {
 
     // Returns requested square from repeater
     //  Returns null if no square found
-    function getSquare(gridX, gridY) {
-        return gridRepeater.itemAt((gridY * gameGrid.rows) + gridX)
+//    function getSquare(gridX, gridY) {
+//        return gridRepeater.itemAt((gridY * gameGrid.rows) + gridX)
+//    }
+
+    function getSquare(gridPos) {
+        return gridRepeater.itemAt((gridPos.y * gameGrid.rows) + gridPos.x)
     }
 
     Repeater {

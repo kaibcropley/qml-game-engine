@@ -7,19 +7,14 @@
 class GridSquareData : public QQuickItem
 {
     Q_OBJECT
-    Q_PROPERTY(BoardSquareType boardSquareType READ getSquareType WRITE setSquareType NOTIFY onSquareTypeChanged)
-    Q_PROPERTY(bool blocked READ getBlocked WRITE setBlocked NOTIFY onBlockedChanged)
+    Q_PROPERTY(QString boardSquareType READ getSquareType WRITE setSquareType NOTIFY onSquareTypeChanged)
+    Q_PROPERTY(bool movementAllowed READ getMovementAllowed WRITE setMovementAllowed NOTIFY onBlockedChanged)
     Q_PROPERTY(bool containsFood READ getContainsFood WRITE setContainsFood NOTIFY onContainsFoodChanged)
 
     Q_PROPERTY(QPoint gridPos READ getGridPos NOTIFY onGridPosChanged)
     Q_PROPERTY(int gridX READ getGridX NOTIFY onGridXChanged)
     Q_PROPERTY(int gridY READ getGridY NOTIFY onGridYChanged)
 public:
-    enum BoardSquareType {
-        DIRT,
-        GRASS
-    };
-    Q_ENUM(BoardSquareType)
 
     explicit GridSquareData(QQuickItem *parent = 0, QPoint gridPos = QPoint(0,0));
     GridSquareData(const GridSquareData &other);
@@ -29,11 +24,11 @@ public:
 
     QVariantMap toQVariantMap();
 
-    void setSquareType(BoardSquareType boardSquareType);
-    BoardSquareType getSquareType() const;
+    void setSquareType(QString boardSquareType);
+    QString getSquareType() const;
 
-    void setBlocked(bool blocked);
-    bool getBlocked() const;
+    void setMovementAllowed(bool blocked);
+    bool getMovementAllowed() const;
 
     void setContainsFood(bool containsFood);
     bool getContainsFood() const;
@@ -50,7 +45,7 @@ public:
     void setGridY(int newY);
 
 signals:
-    void onSquareTypeChanged(BoardSquareType boardSquareType);
+    void onSquareTypeChanged(QString boardSquareType);
     void onBlockedChanged(bool blocked);
     void onContainsFoodChanged(bool containsFood);
 
@@ -61,8 +56,8 @@ signals:
 public slots:
 
 private:
-    BoardSquareType m_squareType;
-    bool m_blocked;
+    QString m_squareType;
+    bool m_movementAllowed;
     bool m_containsFood;
 
     QPoint m_gridPos;
