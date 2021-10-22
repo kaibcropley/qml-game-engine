@@ -47,5 +47,7 @@
         <file>images/Plants 002.png</file>
         <file>images/berry-bush.png</file>
         <file>images/PacMan.png</file>
+        <file>images/dirt.png</file>
+        <file>gridGame/AnimatedGridEntity.qml</file>
     </qresource>
 </RCC>

@@ -3,18 +3,18 @@ import kcropley.grid 1.0
 import "qrc:/"
 import "qrc:/colliders/"
 
-Item {
+GridEntity {
     id: entity
 
-    GridEntity {
-        id: gridEntity
-    }
+//    GridEntity {
+//        id: gridEntity
+//    }
 
-    property alias gridEntity: gridEntity
+//    property alias gridEntity: gridEntity
 
     // Position within grid
-    property alias gridX: gridEntity.gridX
-    property alias gridY: gridEntity.gridY
+//    property alias gridX: gridEntity.gridX
+//    property alias gridY: gridEntity.gridY
 
     // Change in x or y for each movement
     property int dx: 100

@@ -11,7 +11,8 @@ SOURCES += main.cpp \
     gridentityfactory.cpp \
     entitymanager.cpp \
     gridmatrix.cpp \
-    pathfinder.cpp
+    pathfinder.cpp \
+    gridmatrixfactory.cpp
 
 RESOURCES += qml.qrc
 
@@ -29,4 +30,5 @@ HEADERS += \
     gridentityfactory.h \
     entitymanager.h \
     gridmatrix.h \
-    pathfinder.h
+    pathfinder.h \
+    gridmatrixfactory.h

@@ -20,7 +20,8 @@ Item {
 
         Image {
             anchors.fill: parent
-            source: "../images/Grass 00" + (modelData.squareType + 1) + ".png"
+//            source: "../images/Grass 00" + (modelData.squareType + 1) + ".png"
+            source: "../images/dirt.png"
         }
 
         Text {

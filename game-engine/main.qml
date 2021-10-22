@@ -47,37 +47,24 @@ Window {
         width: 50
         height: 50
 
-        x: (gridEntity.gridPos.x * 100) + 25
-        y: (gridEntity.gridPos.y * 100) + 25
+        x: (gridPos.x * 100) + 25
+        y: (gridPos.y * 100) + 25
 
         Component.onCompleted: {
-            entityManager.registerEntity(gridEntity);
+            entityManager.registerEntity(entity);
             entityManager.findPath(Qt.point(8, 6));
             movementTimer.start();
         }
         focus: true
 
         Keys.onSpacePressed: {
-            gridEntity.followPath(1);
+            entity.followPath(1);
         }
 
         Image {
             width: parent.width
             height: parent.height
             source: "/images/PacMan.png"
-        }
-    }
-
-    Timer {
-        id: movementTimer
-        repeat: true
-        interval: 500
-        triggeredOnStart: true
-
-        onTriggered: {
-            if (entity.gridEntity.pathHasSteps()) {
-                entity.gridEntity.followPath(1);
-            }
         }
     }
 
