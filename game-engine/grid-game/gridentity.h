@@ -3,15 +3,16 @@
 
 #include <QQuickItem>
 #include <QVector>
-#include "gridsquaredata.h"
-#include "gridmatrix.h"
-#include "movementenums.h"
+#include "grid-game/gridsquaredata.h"
+#include "grid-game/gridmatrix.h"
+#include "grid-game/movementenums.h"
 
 class GridEntity : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(QPoint gridPos READ getGridPos WRITE setGridPos NOTIFY onGridPosChanged)
     Q_PROPERTY(MovementEnums::Directions lastDirection READ getLastDirection WRITE setLastDirection NOTIFY onLastDirectionChanged)
+    Q_PROPERTY(bool movementEnabled READ getMovementEnabled WRITE setMovementEnabled NOTIFY onMovementEnabledChanged)
 public:
 
     // Constructors
@@ -27,6 +28,9 @@ public:
 
     GridMatrix * getGridMatrix();
     void setGridMatrix(GridMatrix *newGridMatrix);
+
+    bool getMovementEnabled();
+    void setMovementEnabled(bool enable);
 
     MovementEnums::Directions getLastDirection();
     void setLastDirection(MovementEnums::Directions newDirection);
@@ -46,12 +50,16 @@ signals:
 
     void onLastDirectionChanged(MovementEnums::Directions direction);
 
+    void onMovementEnabledChanged(bool enabled);
+
 private:
     QPoint m_gridPos;
 
     QVector<QPoint> m_Path;
 
     GridMatrix *p_gridMatrix;
+
+    bool m_movementEnabled;
 
     MovementEnums::Directions m_lastDirection;
 };

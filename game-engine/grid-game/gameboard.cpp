@@ -7,6 +7,12 @@ GameBoard::GameBoard(QObject *parent) : QObject(parent)
 
 }
 
+void GameBoard::getType(QObject *ptr)
+{
+//    qDebug() << ptr->
+//    ptr->add("test");
+}
+
 void GameBoard::setGameBoard(QVector<QVector<GridSquareData *>> newBoard)
 {
     m_gameBoard = newBoard;

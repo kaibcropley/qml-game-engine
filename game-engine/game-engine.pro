@@ -4,16 +4,16 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    collisionmanager.cpp \
-    gameboard.cpp \
-    gridentity.cpp \
-    gridsquaredata.cpp \
-    gridentityfactory.cpp \
-    entitymanager.cpp \
-    gridmatrix.cpp \
-    pathfinder.cpp \
-    gridmatrixfactory.cpp \
-    movementenums.cpp
+    physics-game/collisionmanager.cpp \
+    grid-game/gameboard.cpp \
+    grid-game/gridentity.cpp \
+    grid-game/gridsquaredata.cpp \
+    grid-game/gridentityfactory.cpp \
+    grid-game/entitymanager.cpp \
+    grid-game/gridmatrix.cpp \
+    grid-game/pathfinder.cpp \
+    grid-game/gridmatrixfactory.cpp \
+    grid-game/movementenums.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,13 +24,13 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    collisionmanager.h \
-    gameboard.h \
-    gridentity.h \
-    gridsquaredata.h \
-    gridentityfactory.h \
-    entitymanager.h \
-    gridmatrix.h \
-    pathfinder.h \
-    gridmatrixfactory.h \
-    movementenums.h
+    physics-game/collisionmanager.h \
+    grid-game/gameboard.h \
+    grid-game/gridentity.h \
+    grid-game/gridsquaredata.h \
+    grid-game/gridentityfactory.h \
+    grid-game/entitymanager.h \
+    grid-game/gridmatrix.h \
+    grid-game/pathfinder.h \
+    grid-game/gridmatrixfactory.h \
+    grid-game/movementenums.h

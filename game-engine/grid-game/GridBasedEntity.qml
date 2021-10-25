@@ -1,18 +1,8 @@
 import QtQuick 2.5
 import kcropley.grid 1.0
-import "qrc:/"
-import "qrc:/colliders/"
 
 GridEntity {
     id: entity
-
-//    GridEntity {
-//        id: gridEntity
-//    }
-
-//    property alias gridEntity: gridEntity
-
-    // Position within grid
 
     // Change in x or y for each movement
     property int xWidth: 100
@@ -26,7 +16,7 @@ GridEntity {
     property int maxDuration: 300
 
     // Movement configs
-    property bool movementEnabled: true
+//    property bool movementEnabled: true
 //    property alias movementDelay: movementDelayTimer.interval
     property bool teleport: false // Disables smoothed movement and teleports player
 

@@ -6,7 +6,8 @@
 GridEntity::GridEntity(QQuickItem *parent) :
     QQuickItem(parent),
     m_gridPos(QPoint(0, 0)),
-    m_lastDirection(MovementEnums::North)
+    m_lastDirection(MovementEnums::North),
+    m_movementEnabled(true)
 {
 }
 
@@ -60,6 +61,19 @@ void GridEntity::setLastDirection(MovementEnums::Directions newDirection)
     emit onLastDirectionChanged(m_lastDirection);
 }
 
+bool GridEntity::getMovementEnabled()
+{
+    return m_movementEnabled;
+}
+
+void GridEntity::setMovementEnabled(bool enable)
+{
+    if (m_movementEnabled != enable) {
+        m_movementEnabled = enable;
+        emit onMovementEnabledChanged(m_movementEnabled);
+    }
+}
+
 void GridEntity::setPath(QVector<QPoint> path)
 {
     m_Path = path;
@@ -84,7 +98,7 @@ void GridEntity::findPath(QPoint target)
 void GridEntity::followPath(int maxSteps)
 {
 //    qDebug() << "GridEntity::followPath(" << maxSteps << ") Path length:" << m_Path.size();
-    if (pathHasSteps()) {
+    if (m_movementEnabled && pathHasSteps()) {
         if (maxSteps > 1) {
             followPath(m_Path, maxSteps);
         } else { // If just 1 step, do here for performance

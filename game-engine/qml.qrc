@@ -1,55 +1,72 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>animations/MovementAnimation.qml</file>
-        <file>Wall.qml</file>
         <file>Face.qml</file>
-        <file>colliders/RectangleCollider.qml</file>
-        <file>colliders/CircleCollider.qml</file>
-        <file>CollisionManager.js</file>
-        <file>BorderWalls.qml</file>
         <file>CounterBox.qml</file>
-        <file>topDownGame/SmoothMovementEntity.qml</file>
-        <file>topDownGame/SmoothMovementPlayer.qml</file>
-        <file>gridGame/GameGrid.qml</file>
-        <file>gridGame/GridBasedEntity.qml</file>
-        <file>gridGame/GridBasedPlayer.qml</file>
-        <file>cardGame/Card.qml</file>
-        <file>cardGame/Hand.qml</file>
-        <file>Platformer.qml</file>
         <file>Controller.qml</file>
-        <file>gridGame/GridSquare.qml</file>
-        <file>images/stars/Space_Stars8.png</file>
-        <file>images/stars/cartoon-star.png</file>
-        <file>images/stone-single.png</file>
-        <file>images/groundPack/dirt1.png</file>
-        <file>images/groundPack/dirt2.png</file>
-        <file>images/groundPack/dirt3.png</file>
-        <file>images/groundPack/dirt4.png</file>
-        <file>images/groundPack/grass1.png</file>
-        <file>images/groundPack/grass10.png</file>
-        <file>images/groundPack/grass2.png</file>
-        <file>images/groundPack/grass3.png</file>
-        <file>images/groundPack/grass4.png</file>
-        <file>images/groundPack/grass5.png</file>
-        <file>images/groundPack/grass6.png</file>
-        <file>images/groundPack/grass7.png</file>
-        <file>images/groundPack/grass8.png</file>
-        <file>images/groundPack/grass9.png</file>
-        <file>images/groundPack/stair_stone1.png</file>
-        <file>images/groundPack/stone1.png</file>
-        <file>images/groundPack/stone2.png</file>
-        <file>images/groundPack/stone3.png</file>
-        <file>images/groundPack/stone4.png</file>
-        <file>images/Grass 002.png</file>
-        <file>images/Grass 001.png</file>
-        <file>images/Plants 001.png</file>
-        <file>images/Plants 002.png</file>
-        <file>images/berry-bush.png</file>
-        <file>images/PacMan.png</file>
-        <file>images/dirt.png</file>
-        <file>gridGame/AnimatedGridEntity.qml</file>
-        <file>gridGame/BugEntity.qml</file>
-        <file>images/Little Alchemist Lab BugsSpriteSheet.png</file>
+        <file>grid-game/GameGrid.qml</file>
+        <file>grid-game/GridBasedEntity.qml</file>
+        <file>grid-game/GridBasedPlayer.qml</file>
+        <file>grid-game/GridSquare.qml</file>
+        <file>grid-game/AnimatedGridEntity.qml</file>
+        <file>physics-game/animations/MovementAnimation.qml</file>
+        <file>physics-game/colliders/CircleCollider.qml</file>
+        <file>physics-game/colliders/RectangleCollider.qml</file>
+        <file>physics-game/BorderWalls.qml</file>
+        <file>physics-game/CollisionManager.js</file>
+        <file>physics-game/Platformer.qml</file>
+        <file>physics-game/SmoothMovementEntity.qml</file>
+        <file>physics-game/SmoothMovementPlayer.qml</file>
+        <file>physics-game/Wall.qml</file>
+        <file>card-game/Card.qml</file>
+        <file>card-game/Hand.qml</file>
+        <file>demos/bugs/BugEntity.qml</file>
+        <file>demos/bugs/images/dirt.png</file>
+        <file>demos/bugs/images/Little Alchemist Lab BugsSpriteSheet.png</file>
+        <file>demos/bugs/images/berry-bush.png</file>
+        <file>demos/images/groundPack/dirt1.png</file>
+        <file>demos/images/groundPack/dirt2.png</file>
+        <file>demos/images/groundPack/dirt3.png</file>
+        <file>demos/images/groundPack/dirt4.png</file>
+        <file>demos/images/groundPack/grass1.png</file>
+        <file>demos/images/groundPack/grass10.png</file>
+        <file>demos/images/groundPack/grass2.png</file>
+        <file>demos/images/groundPack/grass3.png</file>
+        <file>demos/images/groundPack/grass4.png</file>
+        <file>demos/images/groundPack/grass5.png</file>
+        <file>demos/images/groundPack/grass6.png</file>
+        <file>demos/images/groundPack/grass7.png</file>
+        <file>demos/images/groundPack/grass8.png</file>
+        <file>demos/images/groundPack/grass9.png</file>
+        <file>demos/images/groundPack/stair_stone1.png</file>
+        <file>demos/images/groundPack/stone1.png</file>
+        <file>demos/images/groundPack/stone2.png</file>
+        <file>demos/images/groundPack/stone3.png</file>
+        <file>demos/images/groundPack/stone4.png</file>
+        <file>demos/images/stars/cartoon-star.png</file>
+        <file>demos/images/stars/Space_Stars1.png</file>
+        <file>demos/images/stars/Space_Stars2.png</file>
+        <file>demos/images/stars/Space_Stars3.png</file>
+        <file>demos/images/stars/Space_Stars4.png</file>
+        <file>demos/images/stars/Space_Stars5.png</file>
+        <file>demos/images/stars/Space_Stars6.png</file>
+        <file>demos/images/stars/Space_Stars7.png</file>
+        <file>demos/images/stars/Space_Stars8.png</file>
+        <file>demos/images/stars/Space_Stars9.png</file>
+        <file>demos/images/Example.aseprite</file>
+        <file>demos/images/Example.png</file>
+        <file>demos/images/Grass 001.aseprite</file>
+        <file>demos/images/Grass 001.png</file>
+        <file>demos/images/Grass 002.aseprite</file>
+        <file>demos/images/Grass 002.png</file>
+        <file>demos/images/PacMan.png</file>
+        <file>demos/images/Plants 001.aseprite</file>
+        <file>demos/images/Plants 001.png</file>
+        <file>demos/images/Plants 002.aseprite</file>
+        <file>demos/images/Plants 002.png</file>
+        <file>demos/images/spritesheet_nature-blocks.png</file>
+        <file>demos/images/stone-single.png</file>
+        <file>demos/bugs/BugGridSquare.qml</file>
+        <file>demos/bugs/BugGame.qml</file>
     </qresource>
 </RCC>
