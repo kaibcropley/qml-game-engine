@@ -1,18 +1,14 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-<!--        <file>Wall.qml</file>-->
         <file>Face.qml</file>
-<!--        <file>BorderWalls.qml</file>-->
         <file>CounterBox.qml</file>
         <file>Controller.qml</file>
-<!--        Grid -->
         <file>grid-game/GameGrid.qml</file>
         <file>grid-game/GridBasedEntity.qml</file>
         <file>grid-game/GridBasedPlayer.qml</file>
         <file>grid-game/GridSquare.qml</file>
         <file>grid-game/AnimatedGridEntity.qml</file>
-<!--        Phsyics -->
         <file>physics-game/animations/MovementAnimation.qml</file>
         <file>physics-game/colliders/CircleCollider.qml</file>
         <file>physics-game/colliders/RectangleCollider.qml</file>
@@ -22,15 +18,12 @@
         <file>physics-game/SmoothMovementEntity.qml</file>
         <file>physics-game/SmoothMovementPlayer.qml</file>
         <file>physics-game/Wall.qml</file>
-<!--        Card Game -->
         <file>card-game/Card.qml</file>
         <file>card-game/Hand.qml</file>
-<!--        Demo games -->
         <file>demos/bugs/BugEntity.qml</file>
         <file>demos/bugs/images/dirt.png</file>
         <file>demos/bugs/images/Little Alchemist Lab BugsSpriteSheet.png</file>
         <file>demos/bugs/images/berry-bush.png</file>
-<!--        Demo images -->
         <file>demos/images/groundPack/dirt1.png</file>
         <file>demos/images/groundPack/dirt2.png</file>
         <file>demos/images/groundPack/dirt3.png</file>
@@ -73,5 +66,7 @@
         <file>demos/images/Plants 002.png</file>
         <file>demos/images/spritesheet_nature-blocks.png</file>
         <file>demos/images/stone-single.png</file>
+        <file>demos/bugs/BugGridSquare.qml</file>
+        <file>demos/bugs/BugGame.qml</file>
     </qresource>
 </RCC>

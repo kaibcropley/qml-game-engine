@@ -4,7 +4,7 @@ GridSquareData::GridSquareData(QQuickItem *parent, QPoint gridPos) :
     QQuickItem(parent),
     m_gridPos(gridPos),
     m_squareType(""),
-    m_movementAllowed(false),
+    m_movementAllowed(true),
     m_containsFood(false)
 {
 }
@@ -38,7 +38,7 @@ QVariantMap GridSquareData::toQVariantMap()
 {
     QVariantMap vMap;
     vMap.insert("squareType", getSquareType());
-    vMap.insert("blocked", getMovementAllowed());
+    vMap.insert("movementAllowed", getMovementAllowed());
     vMap.insert("containsFood", getContainsFood());
     vMap.insert("gridPos", getGridPos());
     return vMap;

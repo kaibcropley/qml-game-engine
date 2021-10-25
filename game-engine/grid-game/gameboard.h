@@ -17,6 +17,8 @@ public:
     void setGameBoard(QVector<QVector<GridSquareData *>> newBoard);
     QVector<QVector<GridSquareData *>> getGameBoard();
 
+    Q_INVOKABLE void getType(QObject *ptr);
+
     // Returns a QVariantMap/JSON obj with data for the UI
     Q_INVOKABLE QVariantMap getSquareMap(int x, int y);
     GridSquareData* at(int x, int y);

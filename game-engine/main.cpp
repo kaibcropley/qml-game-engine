@@ -26,14 +26,12 @@ int main(int argc, char *argv[])
     // Set C++ context in QML
 //    GridEntityFactory gridEntityFactory;
     CollisionManager collisionManager;
-//    GameBoard gameBoard;
 
     GridMatrixFactory factory;
     GridMatrix *gridMatrix = factory.createRandomMatrix(10, 10);
     EntityManager entityManager(0, gridMatrix);
 //    engine.rootContext()->setContextProperty("gridEntityFactory", &gridEntityFactory);
     engine.rootContext()->setContextProperty("collisionManager", &collisionManager);
-//    engine.rootContext()->setContextProperty("gameBoard", &gameBoard);
     engine.rootContext()->setContextProperty("entityManager", &entityManager);
     engine.rootContext()->setContextProperty("gridMatrix", gridMatrix);
 

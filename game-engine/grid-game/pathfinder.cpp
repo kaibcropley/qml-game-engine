@@ -113,7 +113,7 @@ bool PathFinder::isMoveValid(GridMatrix *gridMatrix, QPoint point)
 {
     // If in bounds, can then check square
     if (point.x() >= 0 && point.x() < gridMatrix->rows() && point.y() >= 0 && point.y() < gridMatrix->columns()) {
-        return !gridMatrix->at(point)->getMovementAllowed();
+        return gridMatrix->at(point)->getMovementAllowed();
     }
     return false;
 }

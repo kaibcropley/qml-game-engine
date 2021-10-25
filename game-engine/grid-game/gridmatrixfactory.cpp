@@ -21,9 +21,9 @@ GridMatrix* GridMatrixFactory::createRandomMatrix(int rows, int columns)
                 GridSquareData *newSquare = new GridSquareData(0, QPoint(i, x));
 //                newSquare->setSquareType(static_cast<GridSquareData::BoardSquareType>((getRandomInt() % 2)));
                 if (x != 0 && x != columns && i != 0 && i != rows) {
-                    newSquare->setMovementAllowed((getRandomInt() % 5) == 1);
+                    newSquare->setMovementAllowed((getRandomInt() % 5) != 0);
                 }
-                if (!newSquare->getMovementAllowed()) {
+                if (newSquare->getMovementAllowed()) {
                     newSquare->setContainsFood((getRandomInt() % 5) == 1);
                 } else {
                     newSquare->setContainsFood(false);
