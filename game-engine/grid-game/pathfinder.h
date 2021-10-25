@@ -73,11 +73,11 @@ private:
 public:
     static PathFinder *getInstance();
 
-    QVector<QPoint> findPath(GridMatrix *gameBoard, QPoint source, QPoint target);
-    QVector<QPoint> dijkstra(GridMatrix *gameBoard, QPoint source, QPoint target);
+    QVector<QPoint> findPath(GridMatrix *gridMatrix, QPoint source, QPoint target);
+    QVector<QPoint> dijkstra(GridMatrix *gridMatrix, QPoint source, QPoint target);
 
     // Path finding helpers
-    bool isMoveValid(GridMatrix *gameBoard, QPoint point);
+    bool isMoveValid(GridMatrix *gridMatrix, QPoint point);
     int calculateManhattanDistance(QPoint p1, QPoint p2);
     QPoint movePointDirection(MovementEnums::Directions direction, QPoint point, int changeLength = 1);
 

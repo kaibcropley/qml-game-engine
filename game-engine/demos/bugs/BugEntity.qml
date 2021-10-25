@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import "qrc:/gridGame/"
+import "qrc:/grid-game/"
 
 AnimatedGridEntity {
     id: bug
@@ -8,7 +8,7 @@ AnimatedGridEntity {
     property bool walking:false
     property bool dying: false
 
-    spriteSource: "/images/Little Alchemist Lab BugsSpriteSheet.png"
+    spriteSource: "./images/Little Alchemist Lab BugsSpriteSheet.png"
     spriteFrameWidth: 32
     spriteFrameHeight: 32
     spriteFrameCount:  walking ? 8 : (dying ? 4 : (bugType % 2 === 0 ? 3 : 1))

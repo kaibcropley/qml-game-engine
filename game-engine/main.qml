@@ -1,10 +1,8 @@
 import QtQuick 2.6
 import QtQuick.Window 2.2
-import "qrc:/colliders/"
-import "qrc:/gridGame/"
+import "qrc:/grid-game/"
+import "qrc:/demos/bugs/"
 import kcropley.grid 1.0
-//import "qrc:/cardGame/"
-//import "qrc:/CollisionManager.js" as CollisionManager
 
 Window {
     id: rootWindow

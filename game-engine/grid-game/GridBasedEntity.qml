@@ -1,7 +1,5 @@
 import QtQuick 2.5
 import kcropley.grid 1.0
-import "qrc:/"
-import "qrc:/colliders/"
 
 GridEntity {
     id: entity

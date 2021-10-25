@@ -1,7 +1,7 @@
 #ifndef GRIDMATRIXFACTORY_H
 #define GRIDMATRIXFACTORY_H
 
-#include "gridmatrix.h"
+#include "grid-game/gridmatrix.h"
 
 class GridMatrixFactory
 {

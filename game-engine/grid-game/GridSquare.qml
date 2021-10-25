@@ -24,7 +24,7 @@ Item {
         Image {
             anchors.fill: parent
 //            source: "../images/Grass 00" + (modelData.squareType + 1) + ".png"
-            source: "../images/dirt.png"
+            source: "../demos/bugs/images/dirt.png"
         }
 
         Text {
@@ -45,7 +45,7 @@ Item {
             height: parent.height / 3
             scale: Qt.KeepAspectRatio
             fillMode: Image.PreserveAspectFit
-            source: "../images/berry-bush.png"
+            source: "../demos/bugs/images/berry-bush.png"
         }
 
         Image {
@@ -53,7 +53,7 @@ Item {
             anchors.centerIn: parent
             width: parent.width / 4
             height: width
-            source: "../images/stone-single.png"
+            source: "../demos/images/stone-single.png"
         }
 
         states: [

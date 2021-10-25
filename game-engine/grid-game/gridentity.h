@@ -3,9 +3,9 @@
 
 #include <QQuickItem>
 #include <QVector>
-#include "gridsquaredata.h"
-#include "gridmatrix.h"
-#include "movementenums.h"
+#include "grid-game/gridsquaredata.h"
+#include "grid-game/gridmatrix.h"
+#include "grid-game/movementenums.h"
 
 class GridEntity : public QQuickItem
 {
