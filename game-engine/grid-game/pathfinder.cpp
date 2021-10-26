@@ -32,14 +32,14 @@ QVector<QPoint> PathFinder::findPath(GridMatrix *gridMatrix, QPoint source, QPoi
     }
 
 //    qDebug() << "PathFinder::findPath( matrix," << source << "," << target << ")";
-    return dijkstra(gridMatrix, source, target);
+    return aStar(gridMatrix, source, target);
 }
 
-// Dijkstra's algorithm for pathfinding
+// A* algorithm for pathfinding
 //  https://wiki.jmonkeyengine.org/docs/3.3/contributions/_attachments/Astar.pdf
 //  Current implementation notes
 //      The current implementation won'tupdate a grid's parent if we find a faster way to that square, this isn't a big concern with movement being limited to 1 square but will need tweaks later
-QVector<QPoint> PathFinder::dijkstra(GridMatrix *gridMatrix, QPoint source, QPoint target)
+QVector<QPoint> PathFinder::aStar(GridMatrix *gridMatrix, QPoint source, QPoint target)
 {
     // Start node can be found by parent == nullptr
     Node *startNode = new Node(source, calculateManhattanDistance(source, target));

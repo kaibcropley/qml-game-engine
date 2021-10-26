@@ -74,7 +74,7 @@ public:
     static PathFinder *getInstance();
 
     QVector<QPoint> findPath(GridMatrix *gridMatrix, QPoint source, QPoint target);
-    QVector<QPoint> dijkstra(GridMatrix *gridMatrix, QPoint source, QPoint target);
+    QVector<QPoint> aStar(GridMatrix *gridMatrix, QPoint source, QPoint target);
 
     // Path finding helpers
     bool isMoveValid(GridMatrix *gridMatrix, QPoint point);

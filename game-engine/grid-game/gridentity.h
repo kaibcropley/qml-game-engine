@@ -32,6 +32,7 @@ public:
     bool getMovementEnabled();
     void setMovementEnabled(bool enable);
 
+    // Allows UI to know which direction to rotate in
     MovementEnums::Directions getLastDirection();
     void setLastDirection(MovementEnums::Directions newDirection);
 
