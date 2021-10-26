@@ -24,6 +24,10 @@ GridEntity {
     signal movementStarted()
     signal movementStopped()
 
+    Component.onCompleted: {
+        entityManager.registerEntity(entity);
+    }
+
     // Smooths out movement between changes in x
     Behavior on x {
         id: xBehavior

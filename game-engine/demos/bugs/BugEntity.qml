@@ -15,4 +15,16 @@ AnimatedGridEntity {
     spriteFrameDuration: 200
     spriteFrameX: walking ? (spriteFrameWidth * 4) : (dying ? (spriteFrameWidth * 13) : 0)
     spriteFrameY: spriteFrameHeight * bugType
+
+    width: 50
+    height: 50
+
+    rotation: lastDirection;
+
+    onMovementStopped: {
+        var currSquare = gameGrid.getSquare(gridPos);
+        if (currSquare.containsFood) {
+            currSquare.containsFood = false;
+        }
+    }
 }

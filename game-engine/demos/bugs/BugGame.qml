@@ -5,6 +5,8 @@ import "qrc:/grid-game/"
 Item {
     id: bugGame
 
+    property var entities: [ ]
+
     MouseArea {
         anchors.fill: parent
 
@@ -25,8 +27,6 @@ Item {
         running: true
 
         onTriggered: {
-            var entities = [ entity, entity2 ];
-
             for (var i = 0; i < entities.length; i++)  {
                 var currEntity = entities[i];
                 if (currEntity.pathHasSteps()) {
@@ -35,7 +35,9 @@ Item {
                     var p = bugGame.findNearestFood(currEntity);
                     if (p !== undefined && p !== null) {
                         currEntity.findPath(p);
-                        findNearestBug(currEntity, entities);
+                        if (currEntity.pathHasSteps()) {
+                            currEntity.followPath(1);
+                        }
                     }
                 }
             }
@@ -115,49 +117,28 @@ Item {
         }
     }
 
-    BugEntity {
-        id: entity
-        width: 50
-        height: 50
+    function makeBug(gridPos, bugType) {
+        var component = Qt.createComponent("BugEntity.qml");
+        var bug = component.createObject(bugGame, {
+                                             "maxDuration": movementTimer.interval,
+                                             "gridPos": gridPos,
+                                             "bugType": bugType
+                                         });
 
-        bugType: 8
-        maxDuration: movementTimer.interval
-        rotation: lastDirection;
+        var copy = entities;
+        copy.push(bug);
+        entities = copy;
 
-        Component.onCompleted: {
-            entityManager.registerEntity(entity);
-        }
-
-        onMovementStopped: {
-            var currSquare = gameGrid.getSquare(gridPos);
-            if (currSquare.containsFood) {
-                currSquare.containsFood = false;
-            }
+        if (bug === null) {
+            // Error Handling
+            console.log("Error creating bug");
         }
     }
 
-    BugEntity {
-        id: entity2
-        width: 50
-        height: 50
-
-        bugType: 5
-        maxDuration: movementTimer.interval
-
-        rotation: lastDirection;
-
-        gridPos: Qt.point(4, 9)
-
-        Component.onCompleted: {
-            entityManager.registerEntity(entity2);
-        }
-
-        onMovementStopped: {
-            var currSquare = gameGrid.getSquare(gridPos);
-            if (currSquare.containsFood) {
-                currSquare.containsFood = false;
-            }
-        }
+    Component.onCompleted: {
+        makeBug(Qt.point(0, 0), 8);
+        makeBug(Qt.point(4, 9), 10);
+        makeBug(Qt.point(3, 1));
     }
 
     BugEntity {
@@ -173,7 +154,7 @@ Item {
 
         onMovementStopped: {
             var targetEntity = playerBug;
-            var entities = [ entity, entity2 ];
+//            var entities = [ entity, entity2 ];
             for (var i = 0; i < entities.length; i++)  {
                 var currEntity = entities[i];
                 if (currEntity !== targetEntity && !currEntity.dying &&  targetEntity.bugType > currEntity.bugType) {
