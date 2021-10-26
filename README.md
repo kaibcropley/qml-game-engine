@@ -2,7 +2,7 @@
 The purpose of this project is to develop a usable QML game engine. This is a personal project with the goal of being able to develop my own Qt / QML games.
 
 # Design
-The majority of the game logic is built in Qt C++ and is exposed to QML through signal/slots, qproperties and qinvokable functions. This is for a few reasons, but the highest of all being keeping applications as performant as possible.
+The majority of the game logic is built in Qt C++ and is exposed to QML through signal/slots, qproperties and qinvokable functions. This is for a few reasons, but the highest of all being keeping applications as performant as possible. QML and JavaScript are then used for the front end. 
 
 Many UI objects are subclassed from C++ QtQuick classes. This is to give the UI elements any required game data, for example: GridBasedEntities.qml is the UI element of a grid games entity, but it is a subclass of GridEntity from gridentity.h/.cpp which contains the true gridPos (grid x/y positioning) and registered with the Entity Manager to gain access to things like path finding.
 
