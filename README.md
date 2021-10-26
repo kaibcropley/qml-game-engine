@@ -17,6 +17,7 @@ Defined as any 2D game that requires a grid, with entities that can move around 
 - A* path finding for AI entities
 - Player controlled movement
 - Interaction between entities
+- Javascript and C++ entity management
 
 ### Phsyics Game
 Defined as any 2D game that uses phsyics (Collisions, Gravity, etc.). The name may change because I'd like to include multiple game types in here, such as 2D platforms, side scrollers and top down games
@@ -24,7 +25,7 @@ Defined as any 2D game that uses phsyics (Collisions, Gravity, etc.). The name m
 - Top Down movement, with player controls included
 
 ## Planned Implementation 
-Largest thing to still do is turn this into a Qt Lib, currently it is structured as a Qt project until I feel I've built a large enough set of tools to release it as a library.
+Likely another thing to still do is turn this into a Qt Lib, currently it is structured as a Qt project until I feel I've built a large enough set of tools to release it as a library.
 
 ### Grid Game
 - Some performance optimizations
