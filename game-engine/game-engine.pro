@@ -13,7 +13,11 @@ SOURCES += main.cpp \
     grid-game/gridmatrix.cpp \
     grid-game/pathfinder.cpp \
     grid-game/gridmatrixfactory.cpp \
-    grid-game/movementenums.cpp
+    grid-game/movementenums.cpp \
+    grid-game/gridgamemanager.cpp \
+    physics-game/collider.cpp \
+    physics-game/rectanglecollider.cpp \
+    physics-game/circlecollider.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,4 +37,8 @@ HEADERS += \
     grid-game/gridmatrix.h \
     grid-game/pathfinder.h \
     grid-game/gridmatrixfactory.h \
-    grid-game/movementenums.h
+    grid-game/movementenums.h \
+    grid-game/gridgamemanager.h \
+    physics-game/collider.h \
+    physics-game/rectanglecollider.h \
+    physics-game/circlecollider.h

@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <QPoint>
-#include <QRect>
+//#include "collider.h"
+#include "rectanglecollider.h"
+#include "circlecollider.h"
 
 class CollisionManager : public QObject
 {
@@ -11,13 +13,17 @@ class CollisionManager : public QObject
 public:
     explicit CollisionManager(QObject *parent = 0);
 
-    Q_INVOKABLE bool rectanglesCollide(QRect rectA, QRect rectB);
-    Q_INVOKABLE bool rectanglesCollide(QPoint topLeftA, QPoint botRightA, QPoint topLeftB, QPoint botRightB);
+    Q_INVOKABLE bool collision(QQuickItem *a, QQuickItem *b);
 
-    Q_INVOKABLE bool circlesCollide(QPoint cirACenter, int aRadius, QPoint cirBCenter, int bRadius);
-    Q_INVOKABLE int distanceBetweenCircles(QPoint aCenter, QPoint bPoint);
+    Q_INVOKABLE bool rectanglesCollide(const RectangleCollider *a, const RectangleCollider *b);
+    Q_INVOKABLE bool rectanglesCollide(const QPoint topLeftA, const QPoint botRightA, const QPoint topLeftB, const QPoint botRightB);
 
-    Q_INVOKABLE bool circleAndRectangleCollide(QPoint cirCenter, int cirRadius, QPoint rectCenter, int rectWidth, int rectHeight);
+    Q_INVOKABLE bool circlesCollide(const CircleCollider *a, const CircleCollider *b);
+    bool circlesCollide(const QPoint cirACenter, int aRadius, const QPoint cirBCenter, int bRadius);
+    Q_INVOKABLE int distanceBetweenCircles(const QPoint aCenter, const QPoint bPoint);
+
+    Q_INVOKABLE bool circleAndRectangleCollide(const CircleCollider *cir, const RectangleCollider *rect);
+    Q_INVOKABLE bool circleAndRectangleCollide(const QPoint cirCenter, int cirRadius, const QPoint rectCenter, int rectWidth, int rectHeight);
 
 signals:
 

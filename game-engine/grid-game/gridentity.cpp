@@ -6,8 +6,8 @@
 GridEntity::GridEntity(QQuickItem *parent) :
     QQuickItem(parent),
     m_gridPos(QPoint(0, 0)),
-    m_lastDirection(MovementEnums::North),
-    m_movementEnabled(true)
+    m_movementEnabled(true),
+    m_lastDirection(MovementEnums::North)
 {
 }
 
@@ -33,7 +33,7 @@ QPoint GridEntity::getGridPos()
 
 void GridEntity::setGridPos(QPoint pos)
 {
-    if (m_gridPos != pos) {
+    if (m_gridPos != pos && m_movementEnabled) {
         m_gridPos = pos;
         emit onGridPosChanged(m_gridPos);
     }
@@ -76,7 +76,7 @@ void GridEntity::setMovementEnabled(bool enable)
 
 void GridEntity::setPath(QVector<QPoint> path)
 {
-    m_Path = path;
+    m_path = path;
 }
 
 void GridEntity::moveTo(QPoint target)
@@ -85,38 +85,63 @@ void GridEntity::moveTo(QPoint target)
     setGridPos(target);
 }
 
+QPoint GridEntity::getPathStep(int pathStepIndex)
+{
+    return m_path.at(pathStepIndex);
+}
+
+QPoint GridEntity::getPathNextStep()
+{
+    return m_path.first();
+}
+
+QPoint GridEntity::getPathTarget()
+{
+    return m_path.last();
+}
+
+int GridEntity::pathLength()
+{
+    return m_path.size();
+}
+
 bool GridEntity::pathHasSteps()
 {
-    return m_Path.size() > 0;
+    return pathLength() > 0;
 }
 
-void GridEntity::findPath(QPoint target)
+// Finds and sets a path (m_path) on the current matrix (p_gridMatrix)
+bool GridEntity::findPath(QPoint target)
 {
-    setPath(PathFinder::getInstance()->findPath(p_gridMatrix, getGridPos(), target));
+    setPath(PathFinder::getInstance()->findPath(p_gridMatrix, getGridPos(), target, 1));
+    return pathHasSteps();
 }
 
-void GridEntity::followPath(int maxSteps)
+bool GridEntity::followPath(int maxSteps)
 {
-//    qDebug() << "GridEntity::followPath(" << maxSteps << ") Path length:" << m_Path.size();
     if (m_movementEnabled && pathHasSteps()) {
         if (maxSteps > 1) {
-            followPath(m_Path, maxSteps);
+            return followPath(m_path, maxSteps);
         } else { // If just 1 step, do here for performance
-            moveTo(m_Path.at(0));
-            m_Path.removeFirst();
+            moveTo(m_path.at(0));
+            m_path.removeFirst();
+            return true;
         }
     }
+    return false;
 }
 
-void GridEntity::followPath(QVector<QPoint> &path, int maxSteps)
+bool GridEntity::followPath(QVector<QPoint> &path, int maxSteps)
 {
-    int currSteps = 0;
-    QVectorIterator<QPoint> pathSteps(path);
-    while (pathSteps.hasNext() && currSteps < maxSteps && pathHasSteps()) {
-        moveTo(pathSteps.next());
-        path.pop_front();
-        currSteps++;
+    if (m_movementEnabled && pathHasSteps()) {
+        int currSteps = 0;
+        QVectorIterator<QPoint> pathSteps(path);
+        while (pathSteps.hasNext() && currSteps < maxSteps && pathHasSteps()) {
+            moveTo(pathSteps.next());
+            path.pop_front();
+            currSteps++;
+        }
+        return true;
     }
+    return false;
 }
-
-

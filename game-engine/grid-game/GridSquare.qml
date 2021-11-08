@@ -1,16 +1,28 @@
 import QtQuick 2.0
 import kcropley.grid 1.0
 
-Rectangle {
+GridSquareData {
     id: gridSquare
-    border.color: "black"
-    border.width: 3
+
+    Rectangle {
+        border.color: "black"
+        border.width: 3
+    }
+
+    Component.onCompleted: {
+        gridMatrix.setSquare(gridSquare);
+    }
 
     property bool debug: false
 
-    property string gridPos
-    property bool movementAllowed: true
+//    property string gridPos
+//    property bool movementAllowed: true
     property alias backgroundSource: imageBackground.source;
+
+    Image {
+        id: imageBackground
+        anchors.fill: parent
+    }
 
     Text {
         visible: debug
@@ -20,19 +32,6 @@ Rectangle {
             margins: 5
         }
 
-        text: gridPos
-    }
-
-    Image {
-        id: imageBackground
-        anchors.fill: parent
-    }
-
-    Image {
-        visible: !movementAllowed
-        anchors.centerIn: parent
-        width: parent.width / 4
-        height: width
-        source: "../demos/images/stone-single.png"
+        text: gridPos.toString();
     }
 }

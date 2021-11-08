@@ -11,7 +11,7 @@ class GridSquareData : public QQuickItem
     Q_PROPERTY(bool movementAllowed READ getMovementAllowed WRITE setMovementAllowed NOTIFY onBlockedChanged)
     Q_PROPERTY(bool containsFood READ getContainsFood WRITE setContainsFood NOTIFY onContainsFoodChanged)
 
-    Q_PROPERTY(QPoint gridPos READ getGridPos NOTIFY onGridPosChanged)
+    Q_PROPERTY(QPoint gridPos READ getGridPos WRITE setGridPos NOTIFY onGridPosChanged)
     Q_PROPERTY(int gridX READ getGridX NOTIFY onGridXChanged)
     Q_PROPERTY(int gridY READ getGridY NOTIFY onGridYChanged)
 public:

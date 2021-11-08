@@ -6,7 +6,12 @@ AnimatedGridEntity {
 
     property int bugType: 0
     property bool walking:false
-    property bool dying: false
+    property bool dying: !alive
+    property int timeDead: 0
+
+    property bool alive: true
+
+    movementEnabled: alive
 
     spriteSource: "./images/Little Alchemist Lab BugsSpriteSheet.png"
     spriteFrameWidth: 32
@@ -21,10 +26,10 @@ AnimatedGridEntity {
 
     rotation: lastDirection;
 
-    onMovementStopped: {
-        var currSquare = gameGrid.getSquare(gridPos);
-        if (currSquare.containsFood) {
-            currSquare.containsFood = false;
-        }
-    }
+//    function setRandomPath() {
+//        var p;
+//        while (!pathHasSteps()) {
+//            findPath(Qt.point(bugGame.getRandomInt(0, bugGame.rows), bugGame.getRandomInt(0, bugGame.columns)));
+//        }
+//    }
 }

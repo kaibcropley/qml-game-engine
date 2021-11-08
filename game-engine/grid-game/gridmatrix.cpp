@@ -1,10 +1,16 @@
 #include "gridmatrix.h"
 
-GridMatrix::GridMatrix(QObject *parent) :
+GridMatrix::GridMatrix(QObject *parent, int rows, int columns) :
     QObject(parent),
     m_matrix(nullptr)
 {
+    m_matrix = new QVector<QVector<GridSquareData *>>;
 
+    for(int i = 0; i < rows; i++) // Initialize starting with row by row
+    {
+        QVector<GridSquareData *> currRow(columns, nullptr);
+        m_matrix->append(currRow);
+    }
 }
 
 GridMatrix::GridMatrix(GridMatrix &other)
@@ -41,7 +47,7 @@ int GridMatrix::rows()
 
 int GridMatrix::columns()
 {
-    if (m_matrix->size() != 0)
+    if (rows() != 0)
         return m_matrix->at(0).size();
     return 0;
 }
@@ -62,4 +68,19 @@ QVariant GridMatrix::matrixToOneDimension()
         }
     }
     return QVariant::fromValue(oneDimensionalBoard);
+}
+
+bool GridMatrix::setSquare(GridSquareData *newSquare) {
+    QPoint gridPos = newSquare->getGridPos();
+    if (at(gridPos) != nullptr) {
+        qDebug() << "GridMatrix::setSquare Duplicate Grid Square" << gridPos;
+        return false;
+    } else if (m_matrix == nullptr) {
+        qDebug() << "GridMatrix::setSquare No matrix" << gridPos;
+        return false;
+    }
+
+    // Unsure yet why [] syntax always requires a leading [0], but must use it over .at because it returns a const reference
+    m_matrix[0][gridPos.x()][gridPos.y()] = newSquare;
+    return true;
 }

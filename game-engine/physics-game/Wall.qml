@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import "qrc:/colliders/"
+import "qrc:/physics-game/colliders/"
 
 RectangleCollider {
     id: wall

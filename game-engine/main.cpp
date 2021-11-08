@@ -13,6 +13,10 @@
 
 #include "grid-game/gridmatrixfactory.h"
 
+#include "grid-game/gridgamemanager.h"
+
+#include "physics-game/circlecollider.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -22,13 +26,17 @@ int main(int argc, char *argv[])
     // Register C++ items in QML
     qmlRegisterType<GridSquareData>("kcropley.grid", 1, 0, "GridSquareData");
     qmlRegisterType<GridEntity>("kcropley.grid", 1, 0, "GridEntity");
+    qmlRegisterType<CircleCollider>("kcropley.physics", 1, 0, "CircleCollider");
+
+    GridGameManager gm;
+    gm.initializeGridGame(10, 10);
 
     // Set C++ context in QML
 //    GridEntityFactory gridEntityFactory;
     CollisionManager collisionManager;
 
-    GridMatrixFactory factory;
-    GridMatrix *gridMatrix = factory.createRandomMatrix(10, 10);
+//    GridMatrixFactory factory;
+    GridMatrix *gridMatrix = new GridMatrix(0, 100, 100); //= //factory.createRandomMatrix(10, 10);
     EntityManager entityManager(0, gridMatrix);
 //    engine.rootContext()->setContextProperty("gridEntityFactory", &gridEntityFactory);
     engine.rootContext()->setContextProperty("collisionManager", &collisionManager);

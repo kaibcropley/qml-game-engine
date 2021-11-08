@@ -8,7 +8,7 @@ class GridMatrix : public QObject
 {
     Q_OBJECT
 public:
-    explicit GridMatrix(QObject *parent = 0);
+    explicit GridMatrix(QObject *parent = 0, int rows = 10, int columns = 10);
     GridMatrix(GridMatrix &other);
 
     void setMatrix(QVector<QVector<GridSquareData *>> *newBoard);
@@ -22,6 +22,8 @@ public:
 
     Q_INVOKABLE QVariantMap getSquareMap(int x, int y);
     Q_INVOKABLE QVariant matrixToOneDimension();
+
+    Q_INVOKABLE bool setSquare(GridSquareData *newSquare);
 
 signals:
 

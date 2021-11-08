@@ -15,6 +15,8 @@ public:
     Q_INVOKABLE bool registerEntity(GridEntity *entity);
     Q_INVOKABLE void updateEntities();
 
+    Q_INVOKABLE GridEntity* checkForEntityCollision(GridEntity *entity);
+
 signals:
 
 public slots:

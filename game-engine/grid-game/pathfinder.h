@@ -73,8 +73,8 @@ private:
 public:
     static PathFinder *getInstance();
 
-    QVector<QPoint> findPath(GridMatrix *gridMatrix, QPoint source, QPoint target);
-    QVector<QPoint> aStar(GridMatrix *gridMatrix, QPoint source, QPoint target);
+    QVector<QPoint> findPath(GridMatrix *gridMatrix, QPoint source, QPoint target, int maxPathLength);
+    QVector<QPoint> aStar(GridMatrix *gridMatrix, QPoint source, QPoint target, int maxPathLength);
 
     // Path finding helpers
     bool isMoveValid(GridMatrix *gridMatrix, QPoint point);

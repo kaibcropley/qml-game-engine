@@ -10,8 +10,8 @@
         <file>grid-game/GridSquare.qml</file>
         <file>grid-game/AnimatedGridEntity.qml</file>
         <file>physics-game/animations/MovementAnimation.qml</file>
-        <file>physics-game/colliders/CircleCollider.qml</file>
-        <file>physics-game/colliders/RectangleCollider.qml</file>
+        <file>physics-game/colliders/CircleEntity.qml</file>
+        <file>physics-game/colliders/RectangleEntity.qml</file>
         <file>physics-game/BorderWalls.qml</file>
         <file>physics-game/CollisionManager.js</file>
         <file>physics-game/Platformer.qml</file>
@@ -21,6 +21,8 @@
         <file>card-game/Card.qml</file>
         <file>card-game/Hand.qml</file>
         <file>demos/bugs/BugEntity.qml</file>
+        <file>demos/bugs/VegetarianBug.qml</file>
+        <file>demos/bugs/CarnivoreBug.qml</file>
         <file>demos/bugs/images/dirt.png</file>
         <file>demos/bugs/images/Little Alchemist Lab BugsSpriteSheet.png</file>
         <file>demos/bugs/images/berry-bush.png</file>
@@ -68,5 +70,101 @@
         <file>demos/images/stone-single.png</file>
         <file>demos/bugs/BugGridSquare.qml</file>
         <file>demos/bugs/BugGame.qml</file>
+        <file>demos/bugs/BugAI.js</file>
+        <file>TileSet.qml</file>
+        <file>demos/images/TileSet.png</file>
+        <file>demos/images/cars/Read Me.txt</file>
+        <file>demos/images/berry-bush.png</file>
+        <file>demos/images/dirt.png</file>
+        <file>demos/images/Little Alchemist Lab BugsSpriteSheet.png</file>
+        <file>demos/space-fighter/images/Moon/1.png</file>
+        <file>demos/space-fighter/images/Moon/10.png</file>
+        <file>demos/space-fighter/images/Moon/11.png</file>
+        <file>demos/space-fighter/images/Moon/12.png</file>
+        <file>demos/space-fighter/images/Moon/13.png</file>
+        <file>demos/space-fighter/images/Moon/14.png</file>
+        <file>demos/space-fighter/images/Moon/15.png</file>
+        <file>demos/space-fighter/images/Moon/16.png</file>
+        <file>demos/space-fighter/images/Moon/17.png</file>
+        <file>demos/space-fighter/images/Moon/18.png</file>
+        <file>demos/space-fighter/images/Moon/19.png</file>
+        <file>demos/space-fighter/images/Moon/2.png</file>
+        <file>demos/space-fighter/images/Moon/20.png</file>
+        <file>demos/space-fighter/images/Moon/21.png</file>
+        <file>demos/space-fighter/images/Moon/22.png</file>
+        <file>demos/space-fighter/images/Moon/23.png</file>
+        <file>demos/space-fighter/images/Moon/24.png</file>
+        <file>demos/space-fighter/images/Moon/25.png</file>
+        <file>demos/space-fighter/images/Moon/26.png</file>
+        <file>demos/space-fighter/images/Moon/27.png</file>
+        <file>demos/space-fighter/images/Moon/28.png</file>
+        <file>demos/space-fighter/images/Moon/29.png</file>
+        <file>demos/space-fighter/images/Moon/3.png</file>
+        <file>demos/space-fighter/images/Moon/30.png</file>
+        <file>demos/space-fighter/images/Moon/31.png</file>
+        <file>demos/space-fighter/images/Moon/32.png</file>
+        <file>demos/space-fighter/images/Moon/33.png</file>
+        <file>demos/space-fighter/images/Moon/34.png</file>
+        <file>demos/space-fighter/images/Moon/35.png</file>
+        <file>demos/space-fighter/images/Moon/36.png</file>
+        <file>demos/space-fighter/images/Moon/37.png</file>
+        <file>demos/space-fighter/images/Moon/38.png</file>
+        <file>demos/space-fighter/images/Moon/39.png</file>
+        <file>demos/space-fighter/images/Moon/4.png</file>
+        <file>demos/space-fighter/images/Moon/40.png</file>
+        <file>demos/space-fighter/images/Moon/41.png</file>
+        <file>demos/space-fighter/images/Moon/42.png</file>
+        <file>demos/space-fighter/images/Moon/43.png</file>
+        <file>demos/space-fighter/images/Moon/44.png</file>
+        <file>demos/space-fighter/images/Moon/45.png</file>
+        <file>demos/space-fighter/images/Moon/46.png</file>
+        <file>demos/space-fighter/images/Moon/47.png</file>
+        <file>demos/space-fighter/images/Moon/48.png</file>
+        <file>demos/space-fighter/images/Moon/49.png</file>
+        <file>demos/space-fighter/images/Moon/5.png</file>
+        <file>demos/space-fighter/images/Moon/50.png</file>
+        <file>demos/space-fighter/images/Moon/51.png</file>
+        <file>demos/space-fighter/images/Moon/52.png</file>
+        <file>demos/space-fighter/images/Moon/53.png</file>
+        <file>demos/space-fighter/images/Moon/54.png</file>
+        <file>demos/space-fighter/images/Moon/55.png</file>
+        <file>demos/space-fighter/images/Moon/56.png</file>
+        <file>demos/space-fighter/images/Moon/57.png</file>
+        <file>demos/space-fighter/images/Moon/58.png</file>
+        <file>demos/space-fighter/images/Moon/59.png</file>
+        <file>demos/space-fighter/images/Moon/6.png</file>
+        <file>demos/space-fighter/images/Moon/60.png</file>
+        <file>demos/space-fighter/images/Moon/7.png</file>
+        <file>demos/space-fighter/images/Moon/8.png</file>
+        <file>demos/space-fighter/images/Moon/9.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/anims/enemy-destroyed.gif</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/anims/ship-anim.gif</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/backgrounds/clouds-transparent.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/backgrounds/clouds.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/backgrounds/desert-backgorund-looped.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/backgrounds/desert-backgorund.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/spritesheets/enemy-big.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/spritesheets/enemy-medium.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/spritesheets/enemy-small.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/spritesheets/explosion.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/spritesheets/laser-bolts.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/spritesheets/power-up.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/spritesheets/ship.png</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/Graphics/layered.psd</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/spaceship shooter music/spaceship shooter .mp3</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/spaceship shooter music/spaceship shooter .ogg</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/spaceship shooter music/spaceship shooter .wav</file>
+        <file>demos/space-fighter/images/space_shooter_pack/space_shooter_pack/public-license.txt</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/backgrounds/clouds-transparent.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/backgrounds/clouds.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/backgrounds/desert-backgorund.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/enemy-big.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/enemy-medium.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/enemy-small.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/explosion.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/laser-bolts.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/power-up.png</file>
+        <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/ship.png</file>
+        <file>demos/space-fighter/SpaceFighterGame.qml</file>
     </qresource>
 </RCC>

@@ -19,7 +19,7 @@ PathFinder* PathFinder::getInstance()
     return m_instance;
 }
 
-QVector<QPoint> PathFinder::findPath(GridMatrix *gridMatrix, QPoint source, QPoint target)
+QVector<QPoint> PathFinder::findPath(GridMatrix *gridMatrix, QPoint source, QPoint target, int maxPathLength)
 {
     if (gridMatrix == nullptr || gridMatrix->rows() < 1 || gridMatrix->columns() < 1) {
 //        qDebug() << "PathFinder::findPath: Invalid grid matrix";
@@ -32,15 +32,17 @@ QVector<QPoint> PathFinder::findPath(GridMatrix *gridMatrix, QPoint source, QPoi
     }
 
 //    qDebug() << "PathFinder::findPath( matrix," << source << "," << target << ")";
-    return aStar(gridMatrix, source, target);
+    return aStar(gridMatrix, source, target, maxPathLength);
 }
 
 // A* algorithm for pathfinding
 //  https://wiki.jmonkeyengine.org/docs/3.3/contributions/_attachments/Astar.pdf
 //  Current implementation notes
 //      The current implementation won'tupdate a grid's parent if we find a faster way to that square, this isn't a big concern with movement being limited to 1 square but will need tweaks later
-QVector<QPoint> PathFinder::aStar(GridMatrix *gridMatrix, QPoint source, QPoint target)
+QVector<QPoint> PathFinder::aStar(GridMatrix *gridMatrix, QPoint source, QPoint target, int maxPathLength)
 {
+    int currPathLength = 0;
+
     // Start node can be found by parent == nullptr
     Node *startNode = new Node(source, calculateManhattanDistance(source, target));
 
@@ -94,6 +96,7 @@ QVector<QPoint> PathFinder::aStar(GridMatrix *gridMatrix, QPoint source, QPoint 
                 }
             }
         }
+        currPathLength++;
     }
 
     qDebug() << "Tested every location, no path found between points " << source << "and" << target;

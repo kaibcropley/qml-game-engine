@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import kcropley.grid 1.0
 import "qrc:/"
 import "qrc:/grid-game/"
 
@@ -7,14 +8,23 @@ Item {
 
     property var entities: [ ]
 
+    property alias rows: gameGrid.rows
+    property alias columns: gameGrid.columns
+
     MouseArea {
         anchors.fill: parent
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         onClicked: {
-            var p = Qt.point(Math.ceil(mouseX / 100) - 1, Math.ceil(mouseY / 100) - 1);
-            var currSquare = gameGrid.getSquare(p);
-            if (!currSquare.blocked) {
-                currSquare.containsFood = true;
+            var p = Qt.point(Math.ceil(mouseX / (bugGame.width / gameGrid.rows)) - 1, Math.ceil(mouseY / (bugGame.height / gameGrid.columns)) - 1);
+
+            if (mouse.button === Qt.RightButton) { // 'mouse' is a MouseEvent argument passed into the onClicked signal handler
+                gameGrid.getSquare(p).movementAllowed = false;
+                if (gameGrid.getSquare(p).containsFood) {
+                    gameGrid.getSquare(p).containsFood = false;
+                }
+            } else if (mouse.button === Qt.LeftButton) {
+                makeBug(p, getRandomInt(0, 12));
             }
         }
     }
@@ -28,29 +38,36 @@ Item {
 
         onTriggered: {
             for (var i = 0; i < entities.length; i++)  {
-                var currEntity = entities[i];
-                if (currEntity.pathHasSteps()) {
-                    currEntity.followPath(1);
+                if (entities[i].alive) {
+                    entities[i].takeAction();
                 } else {
-                    var p = bugGame.findNearestFood(currEntity);
-                    if (p !== undefined && p !== null) {
-                        currEntity.findPath(p);
-                        if (currEntity.pathHasSteps()) {
-                            currEntity.followPath(1);
-                        }
+                    entities[i].timeDead += 1;
+                    if (entities[i].timeDead >= 3) { // Give a delay to the death of the entity
+                        entities[i].destroy();
+                        var copy = entities;
+                        copy.splice(i, 1);
+                        entities = copy;
                     }
                 }
             }
         }
-
-        function getRandomInt(min, max) {
-          min = Math.ceil(min);
-          max = Math.floor(max);
-          return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-        }
     }
 
-    function findNearestFood(targetEntity) {
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+    }
+
+    function findNearestWater(targetEntity) {
+        return findNearestValidSquare(targetEntity, function(square){
+            return square.containsWater
+        });
+    }
+
+    // Returns QPoint or undefined
+    // squareValidityCheck is expected to be formatted like: bool squareValidityCheck(GridSquare)
+    function findNearestValidSquare(targetEntity, squareValidityCheck) {
         var source = targetEntity.gridPos;
         var currTargetFood;
         var currTargetFoodDistance = gameGrid.rows * gameGrid.columns;
@@ -58,7 +75,7 @@ Item {
         for (var row = 0; row < gameGrid.rows; row++) {
             for (var col = 0; col < gameGrid.columns; col++) {
                 var currPoint = Qt.point(row, col);
-                if (gameGrid.getSquare(currPoint).containsFood) {
+                if (squareValidityCheck(gameGrid.getSquare(currPoint))) {
                     var distance = distanceBetween(source, currPoint);
                     if (distance < currTargetFoodDistance) {
                         currTargetFood = currPoint;
@@ -70,26 +87,12 @@ Item {
         return currTargetFood;
     }
 
-    // Returns nearest bug entity or undefined
-    function findNearestBug(targetEntity, entities) {
-        var source = targetEntity.gridPos;
-        var currTargetBug = undefined;
-        var currTargetBugDistance = gameGrid.rows * gameGrid.columns;
-
-        for (var i = 0; i < entities.length; i++)  {
-            var currEntity = entities[i];
-            if (currEntity !== targetEntity && !currEntity.dying &&  targetEntity.bugType > currEntity.bugType) {
-                var distance = distanceBetween(source, currEntity.gridPos);
-                if (distance < currTargetBugDistance) {
-                    currTargetBug = currEntity;
-                    currTargetBugDistance = distance;
-                }
-            }
-        }
-        return currTargetBug;
-    }
-
     function distanceBetween(p1, p2) {
+        if (p1 === undefined || p2 === undefined) {
+            console.log("Error: distanceBetween", p1, p2);
+            return 9999;
+        }
+
         return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
     }
 
@@ -102,23 +105,40 @@ Item {
         }
 
         Component.onCompleted: {
-            model = gridMatrix.matrixToOneDimension();
+//            model = gridMatrix.matrixToOneDimension();
+            var tempModel = [];
+            for (var row = 0; row < rows; row++) {
+                for (var col = 0; col < columns; col++) {
+                    var movementAllowed = getRandomInt(0, 5) !== 1;
+                    var containsFood = movementAllowed ? getRandomInt(0, 10) === 1 : false;
+                    tempModel.push(createGridSquare(Qt.point(col, row), movementAllowed, containsFood));
+                }
+            }
+            model = tempModel;
+        }
+
+        function createGridSquare(p, allowMovement, containFood) {
+            return  {
+                gridPos: p,
+                movementAllowed: allowMovement,
+                containsFood: containFood
+            }
         }
 
         delegate: BugGridSquare {
             id: square
-            width: 100
-            height: 100
+            width: gameGrid.width / gameGrid.columns
+            height: gameGrid.height / gameGrid.rows
 
             backgroundSource: "/demos/bugs/images/dirt.png"
-            gridPos:  modelData.gridPos.toString()
+            gridPos:  modelData.gridPos
             movementAllowed: modelData.movementAllowed
             containsFood: modelData.containsFood
         }
     }
 
     function makeBug(gridPos, bugType) {
-        var component = Qt.createComponent("BugEntity.qml");
+        var component = Qt.createComponent("VegetarianBug.qml");
         var bug = component.createObject(bugGame, {
                                              "maxDuration": movementTimer.interval,
                                              "gridPos": gridPos,
@@ -135,14 +155,8 @@ Item {
         }
     }
 
-    Component.onCompleted: {
-        makeBug(Qt.point(0, 0), 8);
-        makeBug(Qt.point(4, 9), 10);
-        makeBug(Qt.point(3, 1));
-    }
-
-    BugEntity {
-        id: playerBug
+    CarnivoreBug {
+        id: carnivoreBug
         width: 50
         height: 50
 
@@ -152,51 +166,79 @@ Item {
 
         gridPos: Qt.point(8, 3)
 
-        onMovementStopped: {
-            var targetEntity = playerBug;
-//            var entities = [ entity, entity2 ];
-            for (var i = 0; i < entities.length; i++)  {
-                var currEntity = entities[i];
-                if (currEntity !== targetEntity && !currEntity.dying &&  targetEntity.bugType > currEntity.bugType) {
-                    if (currEntity.gridPos === targetEntity.gridPos) {
-                        currEntity.movementEnabled = false;
-                        currEntity.dying = true;
-                    }
-                }
-            }
-        }
+        Timer {
+            id: carnivoreBugMovementTimer
+            interval: 500
+            triggeredOnStart: true
+            repeat: true
+            running: true
 
-        Controller {
-            focus: true
-            disableAutoRepeat: true
-
-            function move(dx, dy) {
-                var currPoint = Qt.point(playerBug.gridPos.x + dx, playerBug.gridPos.y + dy);
-
-                if (currPoint.x < 0 || currPoint.y < 0) {
-                    return;
-                }
-
-                if (gameGrid.getSquare(currPoint).movementAllowed) {
-                    playerBug.gridPos = currPoint;
-                }
-            }
-
-            onMoveLeft: {
-                move(-1,0);
-            }
-
-            onMoveRight: {
-                move(1,0);
-            }
-
-            onMoveUp: {
-                move(0,-1);
-            }
-
-            onMoveDown: {
-                move(0,1);
+            onTriggered: {
+                carnivoreBug.takeAction();
             }
         }
     }
+
+    TileSet {
+        
+    }
+
+//    BugEntity {
+//        id: playerBug
+//        width: 50
+//        height: 50
+
+//        bugType: 12
+//        maxDuration: movementTimer.interval
+//        rotation: lastDirection;
+
+//        gridPos: Qt.point(8, 3)
+
+//        onMovementStopped: {
+//            var targetEntity = playerBug;
+//            for (var i = 0; i < entities.length; i++)  {
+//                var currEntity = entities[i];
+//                if (currEntity !== targetEntity && !currEntity.dying &&  targetEntity.bugType > currEntity.bugType) {
+//                    if (currEntity.gridPos === targetEntity.gridPos) {
+//                        currEntity.movementEnabled = false;
+//                        currEntity.dying = true;
+//                    }
+//                }
+//            }
+//        }
+
+//        Controller {
+//            focus: true
+//            disableAutoRepeat: true
+
+//            function move(dx, dy) {
+//                var currPoint = Qt.point(playerBug.gridPos.x + dx, playerBug.gridPos.y + dy);
+
+//                if (currPoint.x < 0 || currPoint.y < 0) {
+//                    return;
+//                }
+
+//                if (gameGrid.getSquare(currPoint).movementAllowed) {
+//                    playerBug.gridPos = currPoint;
+//                }
+//            }
+
+//            onMoveLeft: {
+//                move(-1,0);
+//            }
+
+//            onMoveRight: {
+//                move(1,0);
+//            }
+
+//            onMoveUp: {
+//                move(0,-1);
+//            }
+
+//            onMoveDown: {
+//                move(0,1);
+//            }
+//        }
+//    }
+
 }

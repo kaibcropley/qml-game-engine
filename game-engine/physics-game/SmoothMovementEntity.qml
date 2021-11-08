@@ -1,7 +1,7 @@
 import QtQuick 2.5
-import "qrc:/colliders/"
+import "qrc:/physics-game/colliders/"
 
-CircleCollider {
+RectangleCollider {
     id: entity
 
     property bool movingUp: false

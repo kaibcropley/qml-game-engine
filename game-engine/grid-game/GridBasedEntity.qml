@@ -28,6 +28,15 @@ GridEntity {
         entityManager.registerEntity(entity);
     }
 
+    function takeAction() {
+        console.log("GridBasedEntity takeAction");
+        setObjective();
+    }
+
+    function setObjective() {
+        console.log("GridBasedEntity setObjective");
+    }
+
     // Smooths out movement between changes in x
     Behavior on x {
         id: xBehavior
