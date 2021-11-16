@@ -166,5 +166,13 @@
         <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/power-up.png</file>
         <file>demos/space-fighter/images/Spaceship-shooter-environment/Spaceship-shooter-environment/spritesheets/ship.png</file>
         <file>demos/space-fighter/SpaceFighterGame.qml</file>
+        <file>demos/space-fighter/images/spaceships/01/Spaceship_01_BLUE.png</file>
+        <file>demos/space-fighter/images/spaceships/01/Spaceship_01_GREEN.png</file>
+        <file>demos/space-fighter/images/spaceships/01/Spaceship_01_NAVY BLUE.png</file>
+        <file>demos/space-fighter/images/spaceships/01/Spaceship_01_ORANGE.png</file>
+        <file>demos/space-fighter/images/spaceships/01/Spaceship_01_PURPLE.png</file>
+        <file>demos/space-fighter/images/spaceships/01/Spaceship_01_RED.png</file>
+        <file>demos/space-fighter/images/spaceships/01/Spaceship_01_YELLOW.png</file>
+        <file>demos/space-fighter/Spaceship.qml</file>
     </qresource>
 </RCC>

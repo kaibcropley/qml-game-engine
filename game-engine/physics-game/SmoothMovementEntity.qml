@@ -54,7 +54,7 @@ RectangleCollider {
                 dy = entity.movementAmount;
             }
 
-            if (collisionsEnabled) {
+            if (collisionsEnabled && possibleMovementCollisions.length > 0) {
                 var playerCenter = entity.getCenterCoordinates();
                 var presumedCenterX = playerCenter.x + dx;
                 var presumedCenterY = playerCenter.y + dy;
